@@ -1,0 +1,49 @@
+Arguments: 
+  /Users/luisvalgoi/.nvm/versions/node/v14.20.1/bin/node /opt/homebrew/Cellar/yarn/1.22.19/libexec/bin/yarn.js install
+
+PATH: 
+  /Users/luisvalgoi/.nvm/versions/node/v14.20.1/bin:/Users/luisvalgoi/.nvm/versions/node/v16.16.0/bin:/Users/luisvalgoi/.rvm/gems/ruby-3.1.2/bin:/Users/luisvalgoi/.rvm/gems/ruby-3.1.2@global/bin:/Users/luisvalgoi/.rvm/rubies/ruby-3.1.2/bin:/Users/luisvalgoi/Development/google-cloud-sdk/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/Apple/usr/bin:/Users/luisvalgoi/.nvm/versions/node/v14.17.0/bin:/opt/homebrew/anaconda3/bin:/Users/luisvalgoi/.amplify/bin:/opt/homebrew/bin:/Users/luisvalgoi/.rover/bin:/Users/luisvalgoi/.fig/bin:/Users/luisvalgoi/.local/bin:/Users/luisvalgoi/.rvm/bin
+
+Yarn version: 
+  1.22.19
+
+Node version: 
+  14.20.1
+
+Platform: 
+  darwin x64
+
+Trace: 
+  Error: incorrect data check
+      at Zlib.zlibOnError [as onerror] (zlib.js:187:17)
+
+npm manifest: 
+  {
+    "name": "expo-start-course",
+    "version": "1.0.0",
+    "main": "node_modules/expo/AppEntry.js",
+    "scripts": {
+      "start": "expo start",
+      "android": "expo start --android",
+      "ios": "expo start --ios",
+      "web": "expo start --web"
+    },
+    "dependencies": {
+      "expo": "~48.0.11",
+      "expo-status-bar": "~1.4.4",
+      "react": "18.2.0",
+      "react-native": "0.71.6"
+    },
+    "devDependencies": {
+      "@babel/core": "^7.20.0",
+      "@types/react": "~18.0.14",
+      "typescript": "^4.9.4"
+    },
+    "private": true
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile
