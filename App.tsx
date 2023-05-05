@@ -4,27 +4,40 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 // routes
 import Home from './src/routes/Home';
+import NewsDetail from './src/routes/NewsDetail';
 
 // comps
 import Bootstrap from './src/components/Bootstrap';
 import Header from './src/components/Header';
+import Footer from './src/components/Footer';
 
-const Stack = createStackNavigator();
+// interfaces
+import { RootStackParamList } from './src/interfaces/interfaces';
+
+const Stack = createStackNavigator<RootStackParamList>();
 
 export default function App() {
   return (
     <Bootstrap>
       {({ onLayoutRootView }) => (
         <NavigationContainer onReady={onLayoutRootView}>
-          <Stack.Navigator initialRouteName="globomantics">
+          <Stack.Navigator initialRouteName="Home">
             <Stack.Screen
-              name="globomantics"
+              name="Home"
               component={Home}
               options={{
-                header: () => <Header display="GloboMantics" />,
+                header: () => <Header display="Home" />,
+              }}
+            />
+            <Stack.Screen
+              name="NewsDetail"
+              component={NewsDetail}
+              options={{
+                header: () => <Header display="News" />,
               }}
             />
           </Stack.Navigator>
+          <Footer />
         </NavigationContainer>
       )}
     </Bootstrap>

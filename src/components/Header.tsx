@@ -1,4 +1,4 @@
-import React, { PropsWithChildren } from 'react';
+import React from 'react';
 import { Image, StyleSheet, Text, View } from 'react-native';
 
 // assets
