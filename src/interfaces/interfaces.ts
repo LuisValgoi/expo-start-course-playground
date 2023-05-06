@@ -14,7 +14,7 @@ export type PageProps<T extends keyof RootStackParamList> = {
 export type ComponentProps<T extends keyof RootStackParamList> =
   StackNavigationProp<RootStackParamList, T>;
 
-export type NewsItemAPIProps = {
+export type NewsListItemAPIProps = {
   url: string;
   title: string;
   urlToImage: string;

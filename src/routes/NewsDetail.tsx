@@ -1,18 +1,21 @@
 import React from 'react';
-import { ActivityIndicator, Image, View } from 'react-native';
-import { Text, TouchableOpacity, TouchableOpacityBase } from 'react-native';
-
+import { ActivityIndicator, View } from 'react-native';
 // interface
 import { PageProps } from '../interfaces/interfaces';
 
 // style
 import styles from '../styles/newsDetail';
+
+// hook
 import useNewsDetail from '../hooks/useNewsDetail';
-import { ScrollView } from 'react-native-gesture-handler';
+
+// component
+import GoBackButton from '../components/GoBackButton';
+import NewsItem from '../components/NewsItem';
 
 type NewsDetailProp = PageProps<'NewsDetail'>;
 
-const NewsDetail: React.FC<NewsDetailProp> = ({ navigation, route }) => {
+const NewsDetail: React.FC<NewsDetailProp> = ({ route }) => {
   const { loading, post } = useNewsDetail(route.params.url);
 
   const renderContent = () => {
@@ -21,22 +24,17 @@ const NewsDetail: React.FC<NewsDetailProp> = ({ navigation, route }) => {
     }
 
     return (
-      <ScrollView>
-        <Text style={styles.title}>{post?.title}</Text>
-        <Image style={styles.storyImg} source={{ uri: post?.urlToImage }} />
-        <Text style={styles.description}>{post?.description}</Text>
-      </ScrollView>
+      <NewsItem
+        title={post?.title!}
+        uri={post?.urlToImage!}
+        description={post?.description!}
+      />
     );
   };
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => navigation.goBack()}
-      >
-        <Text style={styles.buttonText}>Go Back</Text>
-      </TouchableOpacity>
+      <GoBackButton style={{ margin: 10 }} />
       {renderContent()}
     </View>
   );
