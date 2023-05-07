@@ -1,17 +1,10 @@
 import React from 'react';
-import { ActivityIndicator, View } from 'react-native';
-// interface
-import { PageProps } from '../interfaces/interfaces';
+import { ActivityIndicator } from 'react-native';
+import { Box } from 'native-base';
 
-// style
-import styles from '../styles/newsDetail';
-
-// hook
-import useNewsDetail from '../hooks/useNewsDetail';
-
-// component
-import GoBackButton from '../components/GoBackButton';
-import NewsItem from '../components/NewsItem';
+import { PageProps } from 'src/interfaces/interfaces';
+import useNewsDetail from 'src/hooks/useNewsDetail';
+import NewsItem from 'src/components/NewsItem';
 
 type NewsDetailProp = PageProps<'NewsDetail'>;
 
@@ -33,10 +26,9 @@ const NewsDetail: React.FC<NewsDetailProp> = ({ route }) => {
   };
 
   return (
-    <View style={styles.container}>
-      <GoBackButton style={{ margin: 10 }} />
+    <Box bg="gray.100" p="6" pl="2" pr="2" mt="1/4">
       {renderContent()}
-    </View>
+    </Box>
   );
 };
 

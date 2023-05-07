@@ -1,5 +1,5 @@
+import { Box, Image, Text, VStack } from 'native-base';
 import React from 'react';
-import { Image, StyleSheet, Text } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 
 type NewsItemProps = {
@@ -11,28 +11,31 @@ type NewsItemProps = {
 const NewsItem: React.FC<NewsItemProps> = ({ title, uri, description }) => {
   return (
     <ScrollView>
-      <Text style={styles.title}>{title}</Text>
-      <Image style={styles.thumbnail} source={{ uri }} />
-      <Text style={styles.description}>{description}</Text>
+      <Box bg="white" borderRadius="md" p="4">
+        <VStack space="4">
+          <Text
+            fontFamily="body"
+            fontStyle="bold"
+            fontWeight="400"
+            fontSize="xl"
+            textAlign="center"
+          >
+            {title}
+          </Text>
+          <Image
+            source={{ uri }}
+            alt={title}
+            borderRadius="md"
+            w="full"
+            height="sm"
+          />
+          <Text fontFamily="body" fontWeight="400">
+            {description}
+          </Text>
+        </VStack>
+      </Box>
     </ScrollView>
   );
 };
 
 export default NewsItem;
-
-const styles = StyleSheet.create({
-  title: {
-    paddingBottom: 10,
-    fontSize: 18,
-    fontFamily: 'Raleway_700Bold',
-  },
-  thumbnail: {
-    height: 300,
-    width: '100%',
-  },
-  description: {
-    paddingTop: 10,
-    fontFamily: 'Raleway_400Regular',
-    fontStyle: 'italic',
-  },
-});

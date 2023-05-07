@@ -1,11 +1,17 @@
-import { useNavigation } from '@react-navigation/native';
 import React from 'react';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import { StyleSheet, Text, TouchableOpacityProps } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import { ComponentProps } from '../interfaces/interfaces';
+
+import { ComponentProps } from 'src/interfaces/interfaces';
 
 const GoBackButton: React.FC<TouchableOpacityProps> = ({ style }) => {
   const navigation = useNavigation<ComponentProps<'Home'>>();
+  const route = useRoute();
+
+  if (route.name === 'Home') {
+    return <></>;
+  }
 
   return (
     <TouchableOpacity
@@ -22,7 +28,7 @@ export default GoBackButton;
 const styles = StyleSheet.create({
   button: {
     borderWidth: 1,
-    borderColor: 'black',
+    borderColor: 'white',
     borderStyle: 'solid',
     borderRadius: 100,
     padding: 10,
@@ -31,5 +37,6 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     fontFamily: 'Raleway_400Regular',
+    color: 'white',
   },
 });

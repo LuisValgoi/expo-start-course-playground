@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import { PostAPIProps } from '../interfaces/interfaces';
-import { baseUrl } from '../services/URLBase';
+import { PostAPIProps } from 'src/interfaces/interfaces';
+import { baseUrl } from 'src/services/URLBase';
 
 function useNewsDetail(urlRoute: string) {
   const [loading, setLoading] = useState<boolean>(true);

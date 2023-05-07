@@ -2,7 +2,7 @@ import 'react-native-gesture-handler';
 import React, { ReactNode, useCallback } from 'react';
 import * as SplashScreen from 'expo-splash-screen';
 
-import useLoadFont from '../hooks/useLoadFont';
+import useLoadFont from 'src/hooks/useLoadFont';
 
 SplashScreen.preventAutoHideAsync();
 

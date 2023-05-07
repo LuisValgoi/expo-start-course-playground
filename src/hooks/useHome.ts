@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react';
-import { NewsItemAPIProps } from '../interfaces/interfaces';
-import { baseUrl } from '../services/URLBase';
+import { NewsListItemAPIProps } from 'interfaces/interfaces';
+import { baseUrl } from 'src/services/URLBase';
 
 function useHome() {
   const [loading, setLoading] = useState<boolean>(true);
-  const [news, setNews] = useState<NewsItemAPIProps[]>([]);
+  const [news, setNews] = useState<NewsListItemAPIProps[]>([]);
+  const filteredNews = news.filter((n) => n.title && n.description);
 
   useEffect(() => {
     fetch(baseUrl)
@@ -16,7 +17,7 @@ function useHome() {
 
   return {
     loading,
-    news,
+    news: filteredNews,
   };
 }
 

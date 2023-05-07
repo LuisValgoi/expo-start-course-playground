@@ -1,22 +1,10 @@
 import React from 'react';
-import {
-  ActivityIndicator,
-  FlatList,
-  ListRenderItemInfo,
-  View,
-} from 'react-native';
+import { ActivityIndicator, FlatList, ListRenderItemInfo } from 'react-native';
+import { Box } from 'native-base';
 
-// interfaces
-import { NewsListItemAPIProps, PageProps } from '../interfaces/interfaces';
-
-// hooks
-import useHome from '../hooks/useHome';
-
-// styles
-import styles from '../styles/home';
-
-// components
-import NewsListItem from '../components/NewsListItem';
+import { NewsListItemAPIProps, PageProps } from 'src/interfaces/interfaces';
+import useHome from 'src/hooks/useHome';
+import NewsListItem from 'src/components/NewsListItem';
 
 type HomeProps = PageProps<'Home'>;
 
@@ -41,13 +29,13 @@ const Home: React.FC<HomeProps> = ({ navigation }) => {
   };
 
   return (
-    <View style={styles.container}>
+    <Box bg="gray.100" p="6" pl="2" pr="2" mt="1/4">
       <FlatList
         data={news}
         renderItem={renderStoryItem}
         keyExtractor={(item) => item.url}
       />
-    </View>
+    </Box>
   );
 };
 

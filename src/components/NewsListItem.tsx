@@ -1,5 +1,5 @@
+import { Box, Image, Text, VStack } from 'native-base';
 import React from 'react';
-import { Image, StyleSheet, Text, View } from 'react-native';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 
 type NewsListItemProps = {
@@ -16,37 +16,29 @@ const NewsListItem: React.FC<NewsListItemProps> = ({
   description,
 }) => {
   return (
-    <TouchableWithoutFeedback onPress={onPress}>
-      <View style={styles.listings}>
-        <Text style={styles.title}>{title}</Text>
-        <Image style={styles.thumbnail} source={{ uri }} />
-        <Text style={styles.description}>{description}</Text>
-      </View>
+    <TouchableWithoutFeedback
+      containerStyle={{ padding: 10 }}
+      onPress={onPress}
+    >
+      <Box bg="white" borderRadius="md" p="4">
+        <VStack space="2">
+          <Text fontFamily="body" fontStyle="bold" fontWeight="400">
+            {title}
+          </Text>
+          <Image
+            source={{ uri }}
+            alt={title}
+            borderRadius="md"
+            w="full"
+            height="24"
+          />
+          <Text fontFamily="body" fontWeight="400">
+            {description}
+          </Text>
+        </VStack>
+      </Box>
     </TouchableWithoutFeedback>
   );
 };
 
 export default NewsListItem;
-
-const styles = StyleSheet.create({
-  listings: {
-    paddingTop: 15,
-    paddingBottom: 25,
-    borderBottomColor: '#f3f3f3',
-    gap: 10,
-  },
-  title: {
-    paddingBottom: 10,
-    fontSize: 18,
-    fontFamily: 'Raleway_700Bold',
-  },
-  thumbnail: {
-    height: 100,
-    width: '98%',
-    paddingBottom: 10,
-  },
-  description: {
-    fontFamily: 'Raleway_400Regular',
-    fontStyle: 'italic',
-  },
-});

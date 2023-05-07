@@ -1,14 +1,14 @@
 import React from 'react';
 import { Image, StyleSheet, Text, View } from 'react-native';
-
-// assets
-import logo from '../../assets/logo.png';
 import {
   EdgeInsets,
   SafeAreaProvider,
   useSafeAreaInsets,
 } from 'react-native-safe-area-context';
 import { Platform } from 'react-native';
+
+import logo from '../../assets/logo.png';
+import GoBackButton from 'src/components/GoBackButton';
 
 export type HeaderProps = {
   display: string;
@@ -31,11 +31,8 @@ const InternalHeader: React.FC<HeaderProps> = ({ display }) => {
   const styles = getStyles(insets);
 
   return (
-    <View
-      style={{
-        ...styles.header,
-      }}
-    >
+    <View style={styles.header}>
+      <GoBackButton />
       <Image source={logo} style={styles.logo} />
       <View>
         <Text style={styles.text}>{display}</Text>
@@ -47,7 +44,6 @@ const InternalHeader: React.FC<HeaderProps> = ({ display }) => {
 const getStyles = (insets: EdgeInsets) =>
   StyleSheet.create({
     header: {
-      width: '100%',
       height: Platform.OS === 'android' ? 70 : 110,
       display: 'flex',
       flexDirection: 'row',
