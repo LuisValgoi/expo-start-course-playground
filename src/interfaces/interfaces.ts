@@ -3,16 +3,23 @@ import { StackNavigationProp } from '@react-navigation/stack';
 
 export type RootStackParamList = {
   Home: {};
+  About: {};
+  Catalog: {};
+  Quote: {};
   NewsDetail: { url: string };
 };
 
-export type PageProps<T extends keyof RootStackParamList> = {
+export type RootStackList = keyof RootStackParamList;
+
+export type PageProps<T extends RootStackList> = {
   navigation: StackNavigationProp<RootStackParamList, T>;
   route: RouteProp<RootStackParamList, T>;
 };
 
-export type ComponentProps<T extends keyof RootStackParamList> =
-  StackNavigationProp<RootStackParamList, T>;
+export type ComponentProps<T extends RootStackList> = StackNavigationProp<
+  RootStackParamList,
+  T
+>;
 
 export type NewsListItemAPIProps = {
   url: string;

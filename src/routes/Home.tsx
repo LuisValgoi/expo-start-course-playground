@@ -1,6 +1,6 @@
 import React from 'react';
-import { ActivityIndicator, FlatList, ListRenderItemInfo } from 'react-native';
-import { Box } from 'native-base';
+import { FlatList, ListRenderItemInfo } from 'react-native';
+import { Box, Spinner } from 'native-base';
 
 import { NewsListItemAPIProps, PageProps } from 'src/interfaces/interfaces';
 import useHome from 'src/hooks/useHome';
@@ -12,7 +12,7 @@ const Home: React.FC<HomeProps> = ({ navigation }) => {
   const { loading, news } = useHome();
 
   if (loading) {
-    return <ActivityIndicator />;
+    return <Spinner color="red" accessibilityLabel="Loading..." />;
   }
 
   const renderStoryItem = ({
@@ -29,7 +29,7 @@ const Home: React.FC<HomeProps> = ({ navigation }) => {
   };
 
   return (
-    <Box bg="gray.100" p="6" pl="2" pr="2" mt="1/4">
+    <Box bg="gray.100" pt="6" pl="2" pr="2" mt="1/4">
       <FlatList
         data={news}
         renderItem={renderStoryItem}

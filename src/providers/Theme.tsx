@@ -14,6 +14,17 @@ const Theme: React.FC<PropsWithChildren> = ({ children }) => {
     fonts: {
       body: 'Raleway',
     },
+    components: {
+      Button: {
+        baseStyle: {
+          rounded: 'full',
+        },
+        defaultProps: {
+          fontColor: 'white',
+          colorScheme: 'red',
+        },
+      },
+    },
   });
 
   return <NativeBaseProvider theme={theme}>{children}</NativeBaseProvider>;

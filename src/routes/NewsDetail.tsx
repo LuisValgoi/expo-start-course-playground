@@ -1,10 +1,10 @@
 import React from 'react';
-import { ActivityIndicator } from 'react-native';
-import { Box } from 'native-base';
+import { Box, Spinner } from 'native-base';
 
 import { PageProps } from 'src/interfaces/interfaces';
 import useNewsDetail from 'src/hooks/useNewsDetail';
 import NewsItem from 'src/components/NewsItem';
+import { ScrollView } from 'react-native-gesture-handler';
 
 type NewsDetailProp = PageProps<'NewsDetail'>;
 
@@ -13,7 +13,7 @@ const NewsDetail: React.FC<NewsDetailProp> = ({ route }) => {
 
   const renderContent = () => {
     if (loading) {
-      return <ActivityIndicator />;
+      return <Spinner color="red" accessibilityLabel="Loading..." />;
     }
 
     return (
@@ -26,8 +26,8 @@ const NewsDetail: React.FC<NewsDetailProp> = ({ route }) => {
   };
 
   return (
-    <Box bg="gray.100" p="6" pl="2" pr="2" mt="1/4">
-      {renderContent()}
+    <Box bg="gray.100" p="6" pl="2" pr="2" mt="1/4" height="full">
+      <ScrollView>{renderContent()}</ScrollView>
     </Box>
   );
 };

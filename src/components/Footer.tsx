@@ -1,55 +1,41 @@
 import React from 'react';
 import { useNavigation } from '@react-navigation/native';
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 
 import { ComponentProps } from 'src/interfaces/interfaces';
+import { Button, HStack } from 'native-base';
+
+import { useNavigationState } from '@react-navigation/native';
+import { RootStackList } from 'src/interfaces/interfaces';
 
 const Footer: React.FC = () => {
   const navigation = useNavigation<ComponentProps<'Home'>>();
+  const state = useNavigationState((state) => state);
+  const routeName = state?.routeNames[state?.index];
+
+  const getButtonVariant = (url: RootStackList) =>
+    url === routeName ? 'subtle' : 'solid';
 
   return (
-    <View style={styles.footer}>
-      <TouchableOpacity
-        style={styles.button}
+    <HStack
+      w="full"
+      space="2"
+      p="4"
+      justifyItems="center"
+      alignItems="center"
+      justifyContent="center"
+      bgColor="red.500"
+    >
+      <Button
+        variant={getButtonVariant('Home')}
         onPress={() => navigation.navigate('Home', {})}
       >
-        <Text style={styles.text}>Home</Text>
-      </TouchableOpacity>
-      <TouchableOpacity style={styles.button}>
-        <Text style={styles.text}>About</Text>
-      </TouchableOpacity>
-      <TouchableOpacity style={styles.button}>
-        <Text style={styles.text}>Quote</Text>
-      </TouchableOpacity>
-      <TouchableOpacity style={styles.button}>
-        <Text style={styles.text}>Catalog</Text>
-      </TouchableOpacity>
-    </View>
+        Home
+      </Button>
+      <Button variant={getButtonVariant('About')}>About</Button>
+      <Button variant={getButtonVariant('Quote')}>Quote</Button>
+      <Button variant={getButtonVariant('Catalog')}>Catalog</Button>
+    </HStack>
   );
 };
 
 export default Footer;
-
-const styles = StyleSheet.create({
-  footer: {
-    width: '100%',
-    padding: 20,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: 10,
-    backgroundColor:
-      'linear-gradient(180deg, rgba(252,70,73,1) 74%, rgba(219,131,131,1) 82%)',
-  },
-  button: {
-    padding: 10,
-    borderWidth: 1,
-    borderColor: 'white',
-    borderRadius: 10,
-  },
-  text: {
-    color: 'white',
-    fontFamily: 'Raleway_400Regular',
-    // padding: 5,
-  },
-});

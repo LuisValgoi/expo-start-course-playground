@@ -1,6 +1,5 @@
-import { Box, Image, Text, VStack } from 'native-base';
+import { Box, Image, Pressable, Text, VStack } from 'native-base';
 import React from 'react';
-import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 
 type NewsListItemProps = {
   onPress: () => void;
@@ -16,11 +15,8 @@ const NewsListItem: React.FC<NewsListItemProps> = ({
   description,
 }) => {
   return (
-    <TouchableWithoutFeedback
-      containerStyle={{ padding: 10 }}
-      onPress={onPress}
-    >
-      <Box bg="white" borderRadius="md" p="4">
+    <Pressable onPress={onPress}>
+      <Box bg="white" borderRadius="md" p="4" mb="2">
         <VStack space="2">
           <Text fontFamily="body" fontStyle="bold" fontWeight="400">
             {title}
@@ -37,7 +33,7 @@ const NewsListItem: React.FC<NewsListItemProps> = ({
           </Text>
         </VStack>
       </Box>
-    </TouchableWithoutFeedback>
+    </Pressable>
   );
 };
 

@@ -1,7 +1,6 @@
 import React from 'react';
-import { Image, StyleSheet, Text, View } from 'react-native';
+import { StyleSheet } from 'react-native';
 import {
-  EdgeInsets,
   SafeAreaProvider,
   useSafeAreaInsets,
 } from 'react-native-safe-area-context';
@@ -9,6 +8,7 @@ import { Platform } from 'react-native';
 
 import logo from '../../assets/logo.png';
 import GoBackButton from 'src/components/GoBackButton';
+import { HStack, Image, Text } from 'native-base';
 
 export type HeaderProps = {
   display: string;
@@ -27,41 +27,46 @@ const Header: React.FC<HeaderProps> = ({ display }) => {
 export default Header;
 
 const InternalHeader: React.FC<HeaderProps> = ({ display }) => {
-  const insets = useSafeAreaInsets();
-  const styles = getStyles(insets);
+  const styles = useStyles();
 
   return (
-    <View style={styles.header}>
-      <GoBackButton />
-      <Image source={logo} style={styles.logo} />
-      <View>
-        <Text style={styles.text}>{display}</Text>
-      </View>
-    </View>
+    <HStack style={styles.header} backgroundColor="red.500" alignItems="center">
+      <HStack
+        flex={10}
+        alignItems="center"
+        justifyContent="center"
+        position="relative"
+      >
+        <HStack
+          alignItems="center"
+          justifyContent="center"
+          textAlign="center"
+          position="absolute"
+          left={2}
+        >
+          <GoBackButton />
+        </HStack>
+        <Image source={logo} style={styles.logo} alt="Logo" />
+        <Text color="white">{display}</Text>
+      </HStack>
+    </HStack>
   );
 };
 
-const getStyles = (insets: EdgeInsets) =>
-  StyleSheet.create({
+function useStyles() {
+  const insets = useSafeAreaInsets();
+
+  return StyleSheet.create({
     header: {
       height: Platform.OS === 'android' ? 70 : 110,
-      display: 'flex',
-      flexDirection: 'row',
-      alignItems: 'center',
-      justifyContent: 'center',
       paddingTop: insets.top,
       paddingBottom: insets.bottom,
       paddingLeft: insets.left,
       paddingRight: insets.right,
-      backgroundColor:
-        'linear-gradient(180deg, rgba(252,70,73,1) 74%, rgba(219,131,131,1) 82%)',
     },
     logo: {
       width: 35,
       height: 35,
     },
-    text: {
-      fontFamily: 'Raleway_400Regular',
-      color: 'white',
-    },
   });
+}

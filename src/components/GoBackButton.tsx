@@ -1,11 +1,11 @@
 import React from 'react';
 import { useNavigation, useRoute } from '@react-navigation/native';
-import { StyleSheet, Text, TouchableOpacityProps } from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
 
 import { ComponentProps } from 'src/interfaces/interfaces';
+import { Button, Icon } from 'native-base';
+import { FontAwesome } from '@expo/vector-icons';
 
-const GoBackButton: React.FC<TouchableOpacityProps> = ({ style }) => {
+const GoBackButton = () => {
   const navigation = useNavigation<ComponentProps<'Home'>>();
   const route = useRoute();
 
@@ -14,29 +14,15 @@ const GoBackButton: React.FC<TouchableOpacityProps> = ({ style }) => {
   }
 
   return (
-    <TouchableOpacity
-      style={Object.assign({}, styles.button, style)}
+    <Button
       onPress={() => navigation.goBack()}
+      p="2"
+      alignItems="center"
+      justifyItems="center"
     >
-      <Text style={styles.buttonText}>Go Back</Text>
-    </TouchableOpacity>
+      <Icon as={FontAwesome} name="arrow-left" color="white" />
+    </Button>
   );
 };
 
 export default GoBackButton;
-
-const styles = StyleSheet.create({
-  button: {
-    borderWidth: 1,
-    borderColor: 'white',
-    borderStyle: 'solid',
-    borderRadius: 100,
-    padding: 10,
-    alignItems: 'flex-start',
-    justifyContent: 'center',
-  },
-  buttonText: {
-    fontFamily: 'Raleway_400Regular',
-    color: 'white',
-  },
-});

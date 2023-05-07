@@ -2,16 +2,11 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
-// routes
 import Home from 'src/routes/Home';
 import NewsDetail from 'src/routes/NewsDetail';
-
-// comps
 import Bootstrap from 'src/providers/Bootstrap';
 import Header from 'src/components/Header';
 import Footer from 'src/components/Footer';
-
-// interfaces
 import { RootStackParamList } from 'src/interfaces/interfaces';
 import Theme from 'src/providers/Theme';
 
