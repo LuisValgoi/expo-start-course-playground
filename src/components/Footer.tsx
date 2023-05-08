@@ -29,7 +29,6 @@ const Footer: React.FC = () => {
       >
         Contact
       </Button>
-      <Button variant="solid">Catalog</Button>
     </HStack>
   );
 };

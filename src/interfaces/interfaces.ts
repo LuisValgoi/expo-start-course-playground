@@ -4,7 +4,6 @@ import { StackNavigationProp } from '@react-navigation/stack';
 export type RootStackParamList = {
   Home: {};
   About: {};
-  Catalog: {};
   Contact: {};
   NewsDetail: { url: string };
 };
