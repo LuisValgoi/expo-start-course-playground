@@ -5,7 +5,7 @@ export type RootStackParamList = {
   Home: {};
   About: {};
   Catalog: {};
-  Quote: {};
+  Contact: {};
   NewsDetail: { url: string };
 };
 

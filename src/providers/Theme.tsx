@@ -24,6 +24,11 @@ const Theme: React.FC<PropsWithChildren> = ({ children }) => {
           colorScheme: 'red',
         },
       },
+      Input: {
+        baseStyle: {
+          rounded: 'full',
+        },
+      },
       Text: {
         defaultProps: {
           fontFamily: 'body',

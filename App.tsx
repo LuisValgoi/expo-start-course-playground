@@ -10,6 +10,7 @@ import Footer from 'src/components/Footer';
 import { RootStackParamList } from 'src/interfaces/interfaces';
 import Theme from 'src/providers/Theme';
 import About from 'src/routes/About';
+import Contact from 'src/routes/Contact';
 
 const Stack = createStackNavigator<RootStackParamList>();
 
@@ -39,6 +40,13 @@ export default function App() {
                 component={About}
                 options={{
                   header: () => <Header display="About" />,
+                }}
+              />
+              <Stack.Screen
+                name="Contact"
+                component={Contact}
+                options={{
+                  header: () => <Header display="Contact" />,
                 }}
               />
             </Stack.Navigator>
