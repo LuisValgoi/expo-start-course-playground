@@ -1,19 +1,13 @@
-import React from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { useNavigation } from '@react-navigation/native';
 
 import { ComponentProps } from 'src/interfaces/interfaces';
 import { Button, HStack } from 'native-base';
 
-import { useNavigationState } from '@react-navigation/native';
 import { RootStackList } from 'src/interfaces/interfaces';
 
 const Footer: React.FC = () => {
   const navigation = useNavigation<ComponentProps<'Home'>>();
-  const state = useNavigationState((state) => state);
-  const routeName = state?.routeNames[state?.index];
-
-  const getButtonVariant = (url: RootStackList) =>
-    url === routeName ? 'subtle' : 'solid';
 
   return (
     <HStack
@@ -25,15 +19,14 @@ const Footer: React.FC = () => {
       justifyContent="center"
       bgColor="red.500"
     >
-      <Button
-        variant={getButtonVariant('Home')}
-        onPress={() => navigation.navigate('Home', {})}
-      >
+      <Button variant="solid" onPress={() => navigation.navigate('Home', {})}>
         Home
       </Button>
-      <Button variant={getButtonVariant('About')}>About</Button>
-      <Button variant={getButtonVariant('Quote')}>Quote</Button>
-      <Button variant={getButtonVariant('Catalog')}>Catalog</Button>
+      <Button variant="solid" onPress={() => navigation.navigate('About', {})}>
+        About
+      </Button>
+      <Button variant="solid">Quote</Button>
+      <Button variant="solid">Catalog</Button>
     </HStack>
   );
 };

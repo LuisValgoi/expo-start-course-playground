@@ -24,6 +24,12 @@ const Theme: React.FC<PropsWithChildren> = ({ children }) => {
           colorScheme: 'red',
         },
       },
+      Text: {
+        defaultProps: {
+          fontFamily: 'body',
+          fontWeight: 400,
+        },
+      },
     },
   });
 
