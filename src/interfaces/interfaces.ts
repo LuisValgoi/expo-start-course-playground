@@ -1,7 +1,13 @@
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 
+export type StackNavigatorProps = {
+  Stack: any;
+};
+
 export type RootStackParamList = {
+  SignUp: {};
+  SignIn: {};
   Home: {};
   About: {};
   Contact: {};
@@ -10,7 +16,7 @@ export type RootStackParamList = {
 
 export type RootStackList = keyof RootStackParamList;
 
-export type PageProps<T extends RootStackList> = {
+export type ScreenProps<T extends RootStackList> = {
   navigation: StackNavigationProp<RootStackParamList, T>;
   route: RouteProp<RootStackParamList, T>;
 };

@@ -38,7 +38,6 @@ const VideoPlayer: React.FC<IScrollViewProps> = () => {
         videoId={'0GOUF8vNqzE'}
         onChangeState={onStateChange}
         onReady={onReady}
-        onFullScreenChange={(s) => console.log(s)}
       />
       <Button onPress={togglePlaying}>{playing ? 'pause' : 'play'}</Button>
     </View>

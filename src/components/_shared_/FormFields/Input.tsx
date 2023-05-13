@@ -6,11 +6,11 @@ import {
 } from 'native-base';
 import React from 'react';
 
-type FormInputProps = {
+export type FormFieldInputProps = {
   errorMessage?: string;
 } & IInputProps;
 
-const FormInput: React.FC<FormInputProps> = ({
+const FormFieldInput: React.FC<FormFieldInputProps> = ({
   errorMessage = null,
   isInvalid,
   placeholder,
@@ -43,4 +43,4 @@ const FormInput: React.FC<FormInputProps> = ({
   );
 };
 
-export default FormInput;
+export default FormFieldInput;

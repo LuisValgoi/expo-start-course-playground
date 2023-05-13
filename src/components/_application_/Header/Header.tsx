@@ -6,9 +6,9 @@ import {
 } from 'react-native-safe-area-context';
 import { Platform } from 'react-native';
 
-import logo from '../../assets/logo.png';
-import GoBackButton from 'src/components/GoBackButton';
+import GoBackButton from 'src/components/_shared_/GoBackButton/GoBackButton';
 import { HStack, Image, Text } from 'native-base';
+import logo from '../../../../assets/logo.png';
 
 export type HeaderProps = {
   display: string;
@@ -46,7 +46,7 @@ const InternalHeader: React.FC<HeaderProps> = ({ display }) => {
         >
           <GoBackButton />
         </HStack>
-        <Image source={logo} style={styles.logo} alt="Logo" />
+        <Image source={logo} style={{ height: 40, width: 40 }} alt="Logo" />
         <Text color="white">{display}</Text>
       </HStack>
     </HStack>
