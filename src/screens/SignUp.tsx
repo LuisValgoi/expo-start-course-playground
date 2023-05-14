@@ -1,45 +1,44 @@
-import { Box } from 'native-base';
-import React, { useCallback } from 'react';
-import { Alert } from 'react-native';
+import React, { useCallback } from 'react'
+import { Alert } from 'react-native'
+import { Box } from 'native-base'
 import SignUpScreenComp, {
-  SignUpScreenCompFormValues,
-} from 'src/components/_screens_/SignUp/SignUp';
-import { useSaveUser } from 'src/hooks/useAuth';
+  type SignUpScreenCompFormValues
+} from 'src/components/_screens_/SignUp/SignUp'
+import { useAuth } from 'src/hooks/useAuth'
+import { type ScreenProps } from 'src/interfaces/interfaces'
 
-import { ScreenProps } from 'src/interfaces/interfaces';
-
-type SignUpProps = ScreenProps<'SignUp'>;
+type SignUpProps = ScreenProps<'SignUp'>
 
 const SignUp: React.FC<SignUpProps> = ({ navigation }) => {
-  const { handleSave, success, isLoading, error } = useSaveUser();
+  const { save } = useAuth()
 
   const handleSubmit = (form: SignUpScreenCompFormValues) => {
-    handleSave(form);
-  };
-
-  const handleSignInClick = useCallback(() => {
-    navigation.navigate('SignIn', {});
-  }, [navigation]);
-
-  if (error) {
-    Alert.alert('Error', 'Wrong SignUp');
+    save.saveUser(form)
   }
 
-  if (success) {
+  const handleSignInClick = useCallback(() => {
+    navigation.navigate('SignIn', {})
+  }, [navigation])
+
+  if (save.error) {
+    Alert.alert('Error', 'Wrong SignUp')
+  }
+
+  if (save.success) {
     Alert.alert('Successfully Registered!', undefined, [
-      { text: 'Ok!', onPress: () => navigation.navigate('SignIn', {}) },
-    ]);
+      { text: 'Ok!', onPress: () => { navigation.navigate('SignIn', {}) } }
+    ])
   }
 
   return (
     <Box bg="gray.100" p="6" mt="1/4" height="full">
       <SignUpScreenComp
-        isLoading={isLoading}
+        isLoading={save.isLoading}
         onSignInClick={handleSignInClick}
         onSubmit={handleSubmit}
       />
     </Box>
-  );
-};
+  )
+}
 
-export default SignUp;
+export default SignUp

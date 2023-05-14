@@ -3,13 +3,13 @@ import React, {
   Dispatch,
   PropsWithChildren,
   SetStateAction,
-  useContext,
   useState,
 } from 'react';
+import { LoggedUserData } from 'src/interfaces/interfaces';
 
 export type AuthContextValue = {
-  isLoggedIn: boolean;
-  setIsLoggedIn: Dispatch<SetStateAction<boolean>>;
+  loggedUser: LoggedUserData | undefined;
+  setLoggedUser: Dispatch<SetStateAction<LoggedUserData | undefined>>;
 };
 
 export const AuthContext = createContext<AuthContextValue>(
@@ -17,26 +17,18 @@ export const AuthContext = createContext<AuthContextValue>(
 );
 
 const AuthProvider: React.FC<PropsWithChildren> = ({ children }) => {
-  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+  const [loggedUser, setLoggedUser] = useState<LoggedUserData | undefined>()
 
   return (
     <AuthContext.Provider
       value={{
-        isLoggedIn,
-        setIsLoggedIn,
+        loggedUser,
+        setLoggedUser
       }}
     >
       <>{children}</>
     </AuthContext.Provider>
-  );
-};
-
-export function useAuthProvider() {
-  const context = useContext(AuthContext);
-
-  return {
-    ...context,
-  };
+  )
 }
 
-export default AuthProvider;
+export default AuthProvider

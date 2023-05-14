@@ -1,45 +1,39 @@
-import { Box } from 'native-base';
 import React, { useCallback, useEffect } from 'react';
 import { Alert } from 'react-native';
+import { Box } from 'native-base';
 import SignInScreenComp, {
   SignInScreenCompFormValues,
 } from 'src/components/_screens_/SignIn/SignIn';
-import { useGetUser } from 'src/hooks/useAuth';
-
+import { useAuth } from 'src/hooks/useAuth';
 import { ScreenProps } from 'src/interfaces/interfaces';
-import { useAuthProvider } from 'src/providers/Auth';
 
 type SignInProps = ScreenProps<'SignIn'>;
 
 const SignIn: React.FC<SignInProps> = ({ navigation }) => {
-  const { isLoggedIn, setIsLoggedIn } = useAuthProvider();
-  const { getUser } = useGetUser();
-
-  const handleSubmit = async (form: SignInScreenCompFormValues) => {
-    const data = await getUser(form.email);
-    if (data?.email === form.email && data.password === data.password) {
-      setIsLoggedIn(true);
-    } else {
-      Alert.alert('Wrong Credentials', undefined, [
-        {
-          text: 'Try Again',
-          onPress: () => {
-            setIsLoggedIn(false);
-          },
-        },
-      ]);
-    }
-  };
+  const { loggedUser, setLoggedUser, get } = useAuth();
 
   const handleSignUpClick = useCallback(() => {
     navigation.navigate('SignUp', {});
   }, [navigation]);
 
+  const handleSubmit = async (form: SignInScreenCompFormValues) => {
+    const data = await get.getUser(form.email);
+    const correctPassword =
+      data?.email === form.email && data.password === data.password;
+
+    if (correctPassword) {
+      setLoggedUser(data);
+    } else {
+      setLoggedUser(undefined);
+      Alert.alert('Wrong Credentials', undefined, [{ text: 'Try Again' }]);
+    }
+  };
+
   useEffect(() => {
-    if (isLoggedIn) {
+    if (loggedUser != null) {
       navigation.navigate('Home', {});
     }
-  }, [isLoggedIn]);
+  }, [loggedUser]);
 
   return (
     <Box bg="gray.100" p="6" mt="1/4" height="full">

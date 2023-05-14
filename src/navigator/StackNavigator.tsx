@@ -5,7 +5,7 @@ import { RootStackParamList } from 'src/interfaces/interfaces';
 import PrivateStackNavigator from './PrivateStackNavigator';
 import PublicStackNavigator from './PublicStackNavigator';
 import Footer from 'src/components/_application_/Footer/Footer';
-import { useAuthProvider } from 'src/providers/Auth';
+import { useAuth } from 'src/hooks/useAuth';
 
 const Stack = createStackNavigator<RootStackParamList>();
 
@@ -16,16 +16,15 @@ type StackNavigatorProps = {
 const StackNavigator: React.FC<StackNavigatorProps> = ({
   onLayoutRootView,
 }) => {
-  const { isLoggedIn } = useAuthProvider();
+  const { loggedUser } = useAuth();
 
   return (
     <NavigationContainer onReady={onLayoutRootView}>
-      <Stack.Navigator initialRouteName={isLoggedIn ? 'Home' : 'SignIn'}>
-        {!isLoggedIn
-          ? PublicStackNavigator({ Stack })
-          : PrivateStackNavigator({ Stack })}
+      <Stack.Navigator initialRouteName={loggedUser ? 'Home' : 'SignIn'}>
+        {PublicStackNavigator({ Stack })}
+        {PrivateStackNavigator({ Stack })}
       </Stack.Navigator>
-      {isLoggedIn && <Footer />}
+      {loggedUser && <Footer />}
     </NavigationContainer>
   );
 };

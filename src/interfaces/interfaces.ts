@@ -39,3 +39,15 @@ export type PostAPIProps = {
   urlToImage: string;
   description: string;
 };
+
+export interface LoggedUserData {
+  name: string
+  email: string
+  password: string
+}
+
+export interface SaveLoggedUserParams {
+  name: string
+  email: string
+  password: string
+}

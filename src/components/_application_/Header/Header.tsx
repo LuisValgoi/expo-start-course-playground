@@ -9,6 +9,7 @@ import { Platform } from 'react-native';
 import GoBackButton from 'src/components/_shared_/GoBackButton/GoBackButton';
 import { HStack, Image, Text } from 'native-base';
 import logo from '../../../../assets/logo.png';
+import LogoutButton from '../LogoutButton/LogoutButton';
 
 export type HeaderProps = {
   display: string;
@@ -48,10 +49,19 @@ const InternalHeader: React.FC<HeaderProps> = ({ display }) => {
         </HStack>
         <Image source={logo} style={{ height: 40, width: 40 }} alt="Logo" />
         <Text color="white">{display}</Text>
+        <HStack
+          alignItems="center"
+          justifyContent="center"
+          textAlign="center"
+          position="absolute"
+          right={2}
+        >
+          <LogoutButton />
+        </HStack>
       </HStack>
     </HStack>
-  );
-};
+  )
+}
 
 function useStyles() {
   const insets = useSafeAreaInsets();
