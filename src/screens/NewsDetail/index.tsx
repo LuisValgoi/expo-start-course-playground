@@ -2,7 +2,7 @@ import React from 'react';
 import { Box, Spinner } from 'native-base';
 
 import { ScreenProps } from 'src/interfaces/interfaces';
-import useNewsDetail from 'src/hooks/useNewsDetail';
+import useNewsDetail from 'src/screens/NewsDetail/useNewsDetail';
 import NewsDetailScreenComp from 'src/components/_screens_/NewsDetail/NewsDetail';
 
 type NewsDetailProp = ScreenProps<'NewsDetail'>;

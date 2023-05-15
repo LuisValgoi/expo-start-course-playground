@@ -35,6 +35,11 @@ const Theme: React.FC<PropsWithChildren> = ({ children }) => {
           fontWeight: 400,
         },
       },
+      Checkbox: {
+        defaultProps: {
+          colorScheme: 'red',
+        },
+      },
     },
   });
 

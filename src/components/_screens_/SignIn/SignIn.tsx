@@ -14,13 +14,16 @@ import { useFormWithSchema } from 'src/hooks/useFormWithSchemaBuilder';
 import FormFieldInput from 'src/components/_shared_/FormFields/Input';
 import LogoImage from 'src/components/_shared_/FormAssets/LogoImage';
 import FormFieldInputPassword from 'src/components/_shared_/FormFields/InputPassword';
+import FormFieldCheckbox from 'src/components/_shared_/FormFields/CheckBox';
 
 export type SignInScreenCompFormValues = {
   email: string;
   password: string;
+  remember?: string;
 };
 
 const schema = yup.object().shape({
+  remember: yup.string(),
   email: yup.string().required('cannot be blank').email('email must be valid'),
   password: yup.string().required('cannot be blank'),
 });
@@ -83,6 +86,22 @@ const SignInScreenComp: React.FC<SignInScreenCompProps> = ({
                   onChangeText={field.onChange}
                   errorMessage={methods.formState.errors.password?.message}
                 />
+              )}
+            />
+          </Stack>
+
+          <Stack width="full">
+            <Controller
+              control={control}
+              name="remember"
+              render={({ field }) => (
+                <FormControl>
+                  <FormFieldCheckbox
+                    label="Remember-me"
+                    value="remember"
+                    onChange={field.onChange}
+                  />
+                </FormControl>
               )}
             />
           </Stack>

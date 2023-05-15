@@ -1,5 +1,5 @@
 import 'react-native-gesture-handler';
-import React, { ReactNode, useCallback } from 'react';
+import React, { ReactNode } from 'react';
 import * as SplashScreen from 'expo-splash-screen';
 
 import useLoadFont from 'src/hooks/useLoadFont';
@@ -13,11 +13,11 @@ const Bootstrap = ({
 }) => {
   const { appIsReady } = useLoadFont(SplashScreen.preventAutoHideAsync());
 
-  const onLayoutRootView = useCallback(async () => {
+  const onLayoutRootView = async () => {
     if (appIsReady) {
       await SplashScreen.hideAsync();
     }
-  }, [appIsReady]);
+  };
 
   if (!appIsReady) {
     return null;

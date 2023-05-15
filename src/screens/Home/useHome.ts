@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { NewsListItemAPIProps } from 'interfaces/interfaces';
+import { NewsListItemAPIProps } from 'src/interfaces/interfaces';
 import { baseUrl } from 'src/services/URLBase';
 
 function useHome() {

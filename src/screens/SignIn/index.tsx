@@ -1,39 +1,36 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { Alert } from 'react-native';
 import { Box } from 'native-base';
 import SignInScreenComp, {
   SignInScreenCompFormValues,
 } from 'src/components/_screens_/SignIn/SignIn';
-import { useAuth } from 'src/hooks/useAuth';
 import { ScreenProps } from 'src/interfaces/interfaces';
+import { useSignIn } from 'src/screens/SignIn/useSignIn';
 
 type SignInProps = ScreenProps<'SignIn'>;
 
 const SignIn: React.FC<SignInProps> = ({ navigation }) => {
-  const { loggedUser, setLoggedUser, get } = useAuth();
+  const { onSubmit, redirectToHome } = useSignIn();
 
-  const handleSignUpClick = useCallback(() => {
+  const handleSignUpClick = () => {
     navigation.navigate('SignUp', {});
-  }, [navigation]);
+  };
 
   const handleSubmit = async (form: SignInScreenCompFormValues) => {
-    const data = await get.getUser(form.email);
-    const correctPassword =
-      data?.email === form.email && data.password === data.password;
-
-    if (correctPassword) {
-      setLoggedUser(data);
-    } else {
-      setLoggedUser(undefined);
-      Alert.alert('Wrong Credentials', undefined, [{ text: 'Try Again' }]);
-    }
+    await onSubmit(form)
+      .then(() => {
+        navigation.navigate('Home', {});
+      })
+      .catch(() => {
+        Alert.alert('Wrong Credentials', undefined, [{ text: 'Try Again' }]);
+      });
   };
 
   useEffect(() => {
-    if (loggedUser != null) {
+    if (redirectToHome) {
       navigation.navigate('Home', {});
     }
-  }, [loggedUser]);
+  }, [redirectToHome]);
 
   return (
     <Box bg="gray.100" p="6" mt="1/4" height="full">

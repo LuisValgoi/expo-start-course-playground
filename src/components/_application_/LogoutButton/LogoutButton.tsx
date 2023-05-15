@@ -1,9 +1,9 @@
-import React, { useCallback, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { FontAwesome } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { AlertDialog, Button, Icon } from 'native-base';
-import { useAuth } from 'src/hooks/useAuth';
 import { type ComponentProps } from 'src/interfaces/interfaces';
+import { useLogoutButton } from 'src/components/_application_/LogoutButton/useLogoutButton';
 
 const LogoutButton = () => {
   const cancelRef = useRef(null);
@@ -12,25 +12,26 @@ const LogoutButton = () => {
 
   const [dialogOpen, setDialogOpen] = useState(false);
 
-  const { loggedUser, logoutUser } = useAuth();
+  const { userName, onLogout } = useLogoutButton();
 
-  const onOpen = useCallback(() => {
+  const handleOpen = () => {
     setDialogOpen(true);
-  }, [setDialogOpen]);
+  };
 
-  const onClose = useCallback(() => {
+  const handleClose = () => {
     setDialogOpen(false);
-  }, [setDialogOpen]);
+  };
 
-  const onLogout = useCallback(() => {
-    onClose();
-    logoutUser();
-    navigation.navigate('SignIn', {});
-  }, [onClose, logoutUser, navigation]);
+  const handleLogout = () => {
+    onLogout().then(() => {
+      handleClose();
+      navigation.navigate('SignIn', {});
+    });
+  };
 
   return (
     <>
-      <Button onPress={onOpen} p="2">
+      <Button onPress={handleOpen} p="2">
         <Icon
           as={FontAwesome}
           name="user"
@@ -44,11 +45,11 @@ const LogoutButton = () => {
       <AlertDialog
         leastDestructiveRef={cancelRef}
         isOpen={dialogOpen}
-        onClose={onClose}
+        onClose={handleClose}
       >
         <AlertDialog.Content>
           <AlertDialog.CloseButton />
-          <AlertDialog.Header>{`Hey, ${loggedUser?.name}`}</AlertDialog.Header>
+          <AlertDialog.Header>{`Hey, ${userName}`}</AlertDialog.Header>
           <AlertDialog.Body>
             Are you sure you want to logout from the app?
           </AlertDialog.Body>
@@ -57,12 +58,12 @@ const LogoutButton = () => {
               <Button
                 variant="unstyled"
                 colorScheme="coolGray"
-                onPress={onClose}
+                onPress={handleClose}
                 ref={cancelRef}
               >
                 Cancel
               </Button>
-              <Button colorScheme="danger" onPress={onLogout}>
+              <Button colorScheme="danger" onPress={handleLogout}>
                 Yes, I am!
               </Button>
             </Button.Group>

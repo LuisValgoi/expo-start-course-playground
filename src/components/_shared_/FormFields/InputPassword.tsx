@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import FormFieldInput, { FormFieldInputProps } from './Input';
 import { Icon, Pressable } from 'native-base';
 import { FontAwesome } from '@expo/vector-icons';
@@ -6,9 +6,9 @@ import { FontAwesome } from '@expo/vector-icons';
 const FormFieldInputPassword: React.FC<FormFieldInputProps> = ({ ...rest }) => {
   const [passwordShown, setPasswordShown] = useState<boolean>(false);
 
-  const handlePasswordShownPress = useCallback(() => {
+  const handlePasswordShownPress = () => {
     setPasswordShown((prev) => !prev);
-  }, [setPasswordShown]);
+  };
 
   const passwordIcon = useMemo(() => {
     return passwordShown ? 'eye-slash' : 'eye';

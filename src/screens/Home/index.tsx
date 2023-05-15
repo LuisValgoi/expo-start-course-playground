@@ -1,18 +1,18 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import { Box, Spinner } from 'native-base';
 
 import HomeScreenComp from 'src/components/_screens_/Home/Home';
 import { NewsListItemAPIProps, ScreenProps } from 'src/interfaces/interfaces';
-import useHome from 'src/hooks/useHome';
+import useHome from 'src/screens/Home/useHome';
 
 type HomeProps = ScreenProps<'Home'>;
 
 const Home: React.FC<HomeProps> = ({ navigation }) => {
   const { loading, news } = useHome();
 
-  const handleItemPress = useCallback((item: NewsListItemAPIProps) => {
+  const handleItemPress = (item: NewsListItemAPIProps) => {
     navigation.navigate('NewsDetail', { url: item.url });
-  }, []);
+  };
 
   return (
     <Box bg="gray.100" pt="6" pl="2" pr="2" mt="1/4">
