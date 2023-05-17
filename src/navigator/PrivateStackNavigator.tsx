@@ -3,7 +3,8 @@ import Header from 'src/components/_application_/Header/Header';
 import { StackNavigatorProps } from 'src/interfaces/interfaces';
 
 import About from 'src/screens/About';
-import Contact from 'src/screens/Contact';
+import NewsCreate from 'src/screens/NewsCreate';
+import NewsEdit from 'src/screens/NewsEdit';
 import News from 'src/screens/News';
 import NewsDetail from 'src/screens/NewsDetail';
 
@@ -32,10 +33,17 @@ const PrivateStackNavigator: React.FC<StackNavigatorProps> = ({ Stack }) => {
         }}
       />
       <Stack.Screen
-        name="Contact"
-        component={Contact}
+        name="Create"
+        component={NewsCreate}
         options={{
-          header: () => <Header display="Contact" />,
+          header: () => <Header display="News Create" />,
+        }}
+      />
+      <Stack.Screen
+        name="NewsEdit"
+        component={NewsEdit}
+        options={{
+          header: () => <Header display="News Edit" />,
         }}
       />
     </>

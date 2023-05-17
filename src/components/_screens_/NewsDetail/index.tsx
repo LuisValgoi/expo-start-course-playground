@@ -1,23 +1,31 @@
 import React from 'react';
 
-import { PostAPIProps } from 'src/interfaces/interfaces';
+import { INews } from 'src/interfaces/interfaces';
 import { ScrollView } from 'react-native-gesture-handler';
 import NewsItem from 'src/components/_application_/News/NewsItem';
+import { Button, VStack } from 'native-base';
 
 type NewsDetailScreenCompProps = {
-  post: PostAPIProps | undefined;
+  newsDetail: INews | undefined;
+  onNewsEditPress: () => void;
 };
 
 const NewsDetailScreenComp: React.FC<NewsDetailScreenCompProps> = ({
-  post,
+  onNewsEditPress,
+  newsDetail,
 }) => {
   return (
     <ScrollView>
-      <NewsItem
-        title={post?.title!}
-        uri={post?.urlToImage!}
-        description={post?.description!}
-      />
+      <VStack space="2">
+        <NewsItem
+          title={newsDetail?.title!}
+          uri={newsDetail?.urlToImage!}
+          description={newsDetail?.description!}
+        />
+        <Button onPress={onNewsEditPress} variant="link">
+          Edit
+        </Button>
+      </VStack>
     </ScrollView>
   );
 };

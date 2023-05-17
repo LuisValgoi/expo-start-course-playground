@@ -23,12 +23,6 @@ const Footer: React.FC = () => {
       <Button variant="solid" onPress={() => navigation.navigate('About', {})}>
         About
       </Button>
-      <Button
-        variant="solid"
-        onPress={() => navigation.navigate('Contact', {})}
-      >
-        Contact
-      </Button>
     </HStack>
   );
 };

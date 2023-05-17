@@ -10,7 +10,8 @@ export type RootStackParamList = {
   SignIn: {};
   News: {};
   About: {};
-  Contact: {};
+  NewsCreate: {};
+  NewsEdit: { id: string };
   NewsDetail: { id: string };
 };
 
@@ -26,29 +27,15 @@ export type ComponentProps<T extends RootStackList> = StackNavigationProp<
   T
 >;
 
-export type NewsListItemAPIProps = {
+export type INews = {
   id: string;
-  url: string;
-  title: string;
-  urlToImage: string;
-  description: string;
-};
-
-export type PostAPIProps = {
-  url: string;
   title: string;
   urlToImage: string;
   description: string;
 };
 
 export interface LoggedUserData {
-  name: string
-  email: string
-  password: string
-}
-
-export interface SaveLoggedUserParams {
-  name: string
-  email: string
-  password: string
+  name: string;
+  email: string;
+  password: string;
 }

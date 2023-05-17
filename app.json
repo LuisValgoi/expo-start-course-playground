@@ -11,7 +11,10 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": ["**/*", "assets"],
+    "assetBundlePatterns": [
+      "**/*",
+      "assets"
+    ],
     "ios": {
       "supportsTablet": true
     },
@@ -24,6 +27,8 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
-  }
+    },
+    "sdkVersion": "48.0.0"
+  },
+  "name": "expo-start-course"
 }

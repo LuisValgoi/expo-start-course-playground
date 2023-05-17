@@ -9,7 +9,7 @@ type NewsItemProps = {
 
 const NewsItem: React.FC<NewsItemProps> = ({ title, uri, description }) => {
   return (
-    <Box bg="white" borderRadius="md" p="4" height="full">
+    <Box bg="white" borderRadius="md" p="4">
       <VStack space="4">
         <Text
           fontFamily="body"

@@ -2,7 +2,7 @@ import React from 'react';
 import { Box } from 'native-base';
 
 import NewsScreenComp from 'src/components/_screens_/News';
-import { NewsListItemAPIProps, ScreenProps } from 'src/interfaces/interfaces';
+import { INews, ScreenProps } from 'src/interfaces/interfaces';
 import useNews from 'src/screens/News/useNews';
 import LoadingIndicator from 'src/components/_shared_/LoadingIndicator';
 
@@ -11,7 +11,7 @@ type NewsProps = ScreenProps<'News'>;
 const News: React.FC<NewsProps> = ({ navigation }) => {
   const { loading, news } = useNews();
 
-  const handleItemPress = (item: NewsListItemAPIProps) => {
+  const handleItemPress = (item: INews) => {
     navigation.navigate('NewsDetail', { id: item.id });
   };
 
