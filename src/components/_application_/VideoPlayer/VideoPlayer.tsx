@@ -1,7 +1,8 @@
-import { Button, View, IScrollViewProps, Spinner } from 'native-base';
+import { Button, View, IScrollViewProps } from 'native-base';
 import React, { useState } from 'react';
 import { Alert } from 'react-native';
 import YoutubePlayer, { PLAYER_STATES } from 'react-native-youtube-iframe';
+import LoadingIndicator from 'src/components/_shared_/LoadingIndicator';
 
 const VideoPlayer: React.FC<IScrollViewProps> = () => {
   const [playing, setPlaying] = useState(false);
@@ -26,7 +27,7 @@ const VideoPlayer: React.FC<IScrollViewProps> = () => {
     <View>
       {!ready && (
         <View alignItems="center" justifyContent="center">
-          <Spinner color="red.100" size="lg" />
+          <LoadingIndicator />
         </View>
       )}
       <YoutubePlayer

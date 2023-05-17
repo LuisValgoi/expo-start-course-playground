@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Alert } from 'react-native';
 import { Box } from 'native-base';
 import SignInScreenComp, {
@@ -10,7 +10,7 @@ import { useSignIn } from 'src/screens/SignIn/useSignIn';
 type SignInProps = ScreenProps<'SignIn'>;
 
 const SignIn: React.FC<SignInProps> = ({ navigation }) => {
-  const { onSubmit, redirectToHome } = useSignIn();
+  const { onSubmit } = useSignIn();
 
   const handleSignUpClick = () => {
     navigation.navigate('SignUp', {});
@@ -25,12 +25,6 @@ const SignIn: React.FC<SignInProps> = ({ navigation }) => {
         Alert.alert('Wrong Credentials', undefined, [{ text: 'Try Again' }]);
       });
   };
-
-  useEffect(() => {
-    if (redirectToHome) {
-      navigation.navigate('Home', {});
-    }
-  }, [redirectToHome]);
 
   return (
     <Box bg="gray.100" p="6" mt="1/4" height="full">

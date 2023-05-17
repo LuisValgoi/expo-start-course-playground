@@ -17,7 +17,7 @@ export const AuthContext = createContext<AuthContextValue>(
 );
 
 const AuthProvider: React.FC<PropsWithChildren> = ({ children }) => {
-  const [loggedUser, setLoggedUser] = useState<LoggedUserData | undefined>()
+  const [loggedUser, setLoggedUser] = useState<LoggedUserData | undefined>({ name: 'a', email: 'a@a.com', password: 'asdk'})
 
   return (
     <AuthContext.Provider

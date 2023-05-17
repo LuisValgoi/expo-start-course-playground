@@ -1,22 +1,15 @@
-import { useEffect, useState } from 'react';
+import { doc } from 'firebase/firestore';
+import db from 'src/services/firebase';
+import { useDocument } from 'react-firebase-hooks/firestore';
 import { PostAPIProps } from 'src/interfaces/interfaces';
-import { baseUrl } from 'src/services/URLBase';
 
-function useNewsDetail(urlRoute: string) {
-  const [loading, setLoading] = useState<boolean>(true);
-  const [posts, setPosts] = useState<PostAPIProps[]>([]);
-  const post = posts.find((p) => p.url === urlRoute);
-
-  useEffect(() => {
-    fetch(baseUrl)
-      .then((response) => response.json())
-      .then((json) => setPosts(json.articles))
-      .catch((error) => console.error(error))
-      .finally(() => setLoading(false));
-  }, []);
+function useNewsDetail(id: string) {
+  const [postDoc, loading, error] = useDocument(doc(db, 'news', id));
+  const post = postDoc?.data() as PostAPIProps;
 
   return {
     loading,
+    error,
     post,
   };
 }

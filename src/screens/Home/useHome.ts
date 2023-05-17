@@ -1,23 +1,19 @@
-import { useEffect, useState } from 'react';
+import { collection } from 'firebase/firestore';
+import db from 'src/services/firebase';
+import { useCollection } from 'react-firebase-hooks/firestore';
 import { NewsListItemAPIProps } from 'src/interfaces/interfaces';
-import { baseUrl } from 'src/services/URLBase';
 
 function useHome() {
-  const [loading, setLoading] = useState<boolean>(true);
-  const [news, setNews] = useState<NewsListItemAPIProps[]>([]);
-  const filteredNews = news.filter((n) => n.title && n.description);
-
-  useEffect(() => {
-    fetch(baseUrl)
-      .then((response) => response.json())
-      .then((json) => setNews(json.articles))
-      .catch((error) => console.error(error))
-      .finally(() => setLoading(false));
-  }, []);
+  const [newsDoc, loading, error] = useCollection(collection(db, 'news'));
+  const news = newsDoc?.docs.map((doc) => ({
+    ...(doc.data() as NewsListItemAPIProps),
+    id: doc.id,
+  }));
 
   return {
     loading,
-    news: filteredNews,
+    error,
+    news,
   };
 }
 

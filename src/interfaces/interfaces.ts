@@ -11,7 +11,7 @@ export type RootStackParamList = {
   Home: {};
   About: {};
   Contact: {};
-  NewsDetail: { url: string };
+  NewsDetail: { id: string };
 };
 
 export type RootStackList = keyof RootStackParamList;
@@ -27,6 +27,7 @@ export type ComponentProps<T extends RootStackList> = StackNavigationProp<
 >;
 
 export type NewsListItemAPIProps = {
+  id: string;
   url: string;
   title: string;
   urlToImage: string;
