@@ -1,15 +1,15 @@
 import React from 'react';
 import { Box } from 'native-base';
 
-import HomeScreenComp from 'src/components/_screens_/Home/Home';
+import NewsScreenComp from 'src/components/_screens_/News';
 import { NewsListItemAPIProps, ScreenProps } from 'src/interfaces/interfaces';
-import useHome from 'src/screens/Home/useHome';
+import useNews from 'src/screens/News/useNews';
 import LoadingIndicator from 'src/components/_shared_/LoadingIndicator';
 
-type HomeProps = ScreenProps<'Home'>;
+type NewsProps = ScreenProps<'News'>;
 
-const Home: React.FC<HomeProps> = ({ navigation }) => {
-  const { loading, news } = useHome();
+const News: React.FC<NewsProps> = ({ navigation }) => {
+  const { loading, news } = useNews();
 
   const handleItemPress = (item: NewsListItemAPIProps) => {
     navigation.navigate('NewsDetail', { id: item.id });
@@ -20,10 +20,10 @@ const Home: React.FC<HomeProps> = ({ navigation }) => {
       {loading ? (
         <LoadingIndicator />
       ) : (
-        <HomeScreenComp onItemPress={handleItemPress} news={news} />
+        <NewsScreenComp onItemPress={handleItemPress} news={news} />
       )}
     </Box>
   );
 };
 
-export default Home;
+export default News;

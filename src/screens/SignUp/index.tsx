@@ -3,7 +3,7 @@ import { Alert } from 'react-native';
 import { Box } from 'native-base';
 import SignUpScreenComp, {
   type SignUpScreenCompFormValues,
-} from 'src/components/_screens_/SignUp/SignUp';
+} from 'src/components/_screens_/SignUp';
 import { type ScreenProps } from 'src/interfaces/interfaces';
 import { useSignUp } from 'src/screens/SignUp/useSignUp';
 

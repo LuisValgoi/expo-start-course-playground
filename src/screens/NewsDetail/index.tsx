@@ -3,7 +3,7 @@ import { Box } from 'native-base';
 
 import { ScreenProps } from 'src/interfaces/interfaces';
 import useNewsDetail from 'src/screens/NewsDetail/useNewsDetail';
-import NewsDetailScreenComp from 'src/components/_screens_/NewsDetail/NewsDetail';
+import NewsDetailScreenComp from 'src/components/_screens_/NewsDetail';
 import LoadingIndicator from 'src/components/_shared_/LoadingIndicator';
 
 type NewsDetailProp = ScreenProps<'NewsDetail'>;

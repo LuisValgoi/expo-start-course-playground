@@ -3,7 +3,7 @@ import { Alert } from 'react-native';
 import { Box } from 'native-base';
 import SignInScreenComp, {
   SignInScreenCompFormValues,
-} from 'src/components/_screens_/SignIn/SignIn';
+} from 'src/components/_screens_/SignIn';
 import { ScreenProps } from 'src/interfaces/interfaces';
 import { useSignIn } from 'src/screens/SignIn/useSignIn';
 
@@ -19,7 +19,7 @@ const SignIn: React.FC<SignInProps> = ({ navigation }) => {
   const handleSubmit = async (form: SignInScreenCompFormValues) => {
     await onSubmit(form)
       .then(() => {
-        navigation.navigate('Home', {});
+        navigation.navigate('News', {});
       })
       .catch(() => {
         Alert.alert('Wrong Credentials', undefined, [{ text: 'Try Again' }]);

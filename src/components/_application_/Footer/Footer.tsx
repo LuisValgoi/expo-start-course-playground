@@ -5,7 +5,7 @@ import { ComponentProps } from 'src/interfaces/interfaces';
 import { Button, HStack } from 'native-base';
 
 const Footer: React.FC = () => {
-  const navigation = useNavigation<ComponentProps<'Home'>>();
+  const navigation = useNavigation<ComponentProps<'News'>>();
 
   return (
     <HStack
@@ -17,8 +17,8 @@ const Footer: React.FC = () => {
       justifyContent="center"
       bgColor="red.500"
     >
-      <Button variant="solid" onPress={() => navigation.navigate('Home', {})}>
-        Home
+      <Button variant="solid" onPress={() => navigation.navigate('News', {})}>
+        News
       </Button>
       <Button variant="solid" onPress={() => navigation.navigate('About', {})}>
         About

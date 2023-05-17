@@ -4,12 +4,12 @@ import { FlatList, ListRenderItemInfo } from 'react-native';
 import { NewsListItemAPIProps } from 'src/interfaces/interfaces';
 import NewsListItem from 'src/components/_application_/News/NewsListItem';
 
-type HomeScreenCompProps = {
+type NewsScreenCompProps = {
   onItemPress: (item: NewsListItemAPIProps) => void;
   news: ArrayLike<NewsListItemAPIProps> | null | undefined;
 };
 
-const HomeScreenComp: React.FC<HomeScreenCompProps> = ({
+const NewsScreenComp: React.FC<NewsScreenCompProps> = ({
   onItemPress,
   news,
 }) => {
@@ -30,9 +30,9 @@ const HomeScreenComp: React.FC<HomeScreenCompProps> = ({
     <FlatList
       data={news}
       renderItem={renderStoryItem}
-      keyExtractor={(item) => item.url}
+      keyExtractor={(item) => item.id}
     />
   );
 };
 
-export default HomeScreenComp;
+export default NewsScreenComp;

@@ -6,10 +6,10 @@ import { Button, Icon } from 'native-base';
 import { FontAwesome } from '@expo/vector-icons';
 
 const GoBackButton = () => {
-  const navigation = useNavigation<ComponentProps<'Home'>>();
+  const navigation = useNavigation<ComponentProps<'News'>>();
   const route = useRoute();
 
-  if (route.name === 'Home') {
+  if (route.name === 'News') {
     return <></>;
   }
 

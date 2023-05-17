@@ -2,11 +2,11 @@ import React from 'react';
 import { Box } from 'native-base';
 import ContactScreenComp, {
   ContactScreenCompFormValues,
-} from 'src/components/_screens_/Contact/Contact';
+} from 'src/components/_screens_/Contact';
 import { Alert } from 'react-native';
 import { ScreenProps } from 'src/interfaces/interfaces';
 
-type ContactProps = ScreenProps<'Home'>;
+type ContactProps = ScreenProps<'News'>;
 
 const Contact: React.FC<ContactProps> = ({ navigation }) => {
   const handleSubmit = (data: ContactScreenCompFormValues) => {

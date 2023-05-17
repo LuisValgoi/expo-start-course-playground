@@ -3,7 +3,7 @@ import db from 'src/services/firebase';
 import { useCollection } from 'react-firebase-hooks/firestore';
 import { NewsListItemAPIProps } from 'src/interfaces/interfaces';
 
-function useHome() {
+function useNews() {
   const [newsDoc, loading, error] = useCollection(collection(db, 'news'));
   const news = newsDoc?.docs.map((doc) => ({
     ...(doc.data() as NewsListItemAPIProps),
@@ -17,4 +17,4 @@ function useHome() {
   };
 }
 
-export default useHome;
+export default useNews;

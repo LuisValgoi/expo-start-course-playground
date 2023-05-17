@@ -8,7 +8,7 @@ export type StackNavigatorProps = {
 export type RootStackParamList = {
   SignUp: {};
   SignIn: {};
-  Home: {};
+  News: {};
   About: {};
   Contact: {};
   NewsDetail: { id: string };

@@ -1,4 +1,4 @@
-import { SignInScreenCompFormValues } from 'src/components/_screens_/SignIn/SignIn';
+import { SignInScreenCompFormValues } from 'src/components/_screens_/SignIn';
 import { useAuth } from 'src/hooks/useAuth';
 
 export function useSignIn() {

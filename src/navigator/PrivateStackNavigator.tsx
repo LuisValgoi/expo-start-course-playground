@@ -4,24 +4,24 @@ import { StackNavigatorProps } from 'src/interfaces/interfaces';
 
 import About from 'src/screens/About';
 import Contact from 'src/screens/Contact';
-import Home from 'src/screens/Home';
+import News from 'src/screens/News';
 import NewsDetail from 'src/screens/NewsDetail';
 
 const PrivateStackNavigator: React.FC<StackNavigatorProps> = ({ Stack }) => {
   return (
     <>
       <Stack.Screen
-        name="Home"
-        component={Home}
+        name="News"
+        component={News}
         options={{
-          header: () => <Header display="Home" />,
+          header: () => <Header display="News" />,
         }}
       />
       <Stack.Screen
         name="NewsDetail"
         component={NewsDetail}
         options={{
-          header: () => <Header display="News" />,
+          header: () => <Header display="Details" />,
         }}
       />
       <Stack.Screen
