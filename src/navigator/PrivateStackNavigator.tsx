@@ -33,7 +33,7 @@ const PrivateStackNavigator: React.FC<StackNavigatorProps> = ({ Stack }) => {
         }}
       />
       <Stack.Screen
-        name="Create"
+        name="NewsCreate"
         component={NewsCreate}
         options={{
           header: () => <Header display="News Create" />,

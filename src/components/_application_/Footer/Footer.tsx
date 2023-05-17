@@ -11,7 +11,8 @@ const Footer: React.FC = () => {
     <HStack
       w="full"
       space="2"
-      p="4"
+      pt="3"
+      pb="6"
       justifyItems="center"
       alignItems="center"
       justifyContent="center"

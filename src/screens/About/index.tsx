@@ -9,7 +9,7 @@ type AboutProps = ScreenProps<'About'>;
 
 const About: React.FC<AboutProps> = ({ navigation }) => {
   return (
-    <Box bg="gray.100" height="full" p="6" pl="2" pr="2" mt="1/4" mb="96">
+    <Box bg="gray.100" pt="1/3" pl="2" pr="2" height="full">
       <AboutScreenComp title="We are different!" about={blockA} />
     </Box>
   );

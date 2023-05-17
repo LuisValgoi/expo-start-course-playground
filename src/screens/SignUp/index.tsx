@@ -34,7 +34,7 @@ const SignUp: React.FC<SignUpProps> = ({ navigation }) => {
   };
 
   return (
-    <Box bg="gray.100" p="6" mt="1/4" height="full">
+    <Box bg="gray.100" pt="1/3" pl="2" pr="2" height="full">
       <SignUpScreenComp
         onSignInClick={handleSignInClick}
         onSubmit={handleSubmit}
