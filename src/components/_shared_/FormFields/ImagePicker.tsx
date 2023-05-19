@@ -1,5 +1,5 @@
 import { FormControl, IInputProps, WarningOutlineIcon } from 'native-base';
-import React from 'react';
+import React, { useState } from 'react';
 import ImagePicker from '../ImagePicker';
 import { ImagePickerAsset } from 'expo-image-picker';
 import { UseFormSetError, UseFormSetValue } from 'react-hook-form';
@@ -21,11 +21,14 @@ const FormFieldImagePicker: React.FC<FormFieldImagePickerProps> = ({
   onPickImage,
   ...rest
 }) => {
+  const [loading, setLoading] = useState(false);
   const invalid = !!errorMessage || isInvalid;
 
   const handlePickImage = async (img: ImagePickerAsset) => {
+    setLoading(true);
     const response = await fetch(img.uri);
     const data = await response.blob();
+    setLoading(false);
     onPickImage(data);
     setValue(controllerName, img.fileName);
     setError(controllerName, {});
@@ -44,6 +47,7 @@ const FormFieldImagePicker: React.FC<FormFieldImagePickerProps> = ({
           borderWidth: 2,
           borderColor: 'red.500',
         }}
+        loading={loading}
         onPickImage={handlePickImage}
         {...rest}
       />

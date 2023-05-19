@@ -29,7 +29,7 @@ const NewsScreenComp: React.FC<NewsScreenCompProps> = ({
       <NewsListItem
         onPress={() => onItemPress(item)}
         title={item.title}
-        uri={item.urlToImage}
+        imagePath={item.imagePath}
         description={item.description}
       />
     );

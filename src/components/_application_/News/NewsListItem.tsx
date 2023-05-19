@@ -1,17 +1,18 @@
-import { Box, Image, Pressable, Text, VStack } from 'native-base';
+import { Box, Pressable, Text, VStack } from 'native-base';
 import React from 'react';
+import RemoteImage from '../RemoteImage';
 
 type NewsListItemProps = {
   onPress: () => void;
   title: string;
-  uri: string;
+  imagePath: string;
   description: string;
 };
 
 const NewsListItem: React.FC<NewsListItemProps> = ({
   onPress,
   title,
-  uri,
+  imagePath,
   description,
 }) => {
   return (
@@ -21,8 +22,8 @@ const NewsListItem: React.FC<NewsListItemProps> = ({
           <Text fontFamily="body" fontStyle="bold" fontWeight="400">
             {title}
           </Text>
-          <Image
-            source={{ uri }}
+          <RemoteImage
+            imagePath={imagePath}
             alt={title}
             borderRadius="md"
             w="full"

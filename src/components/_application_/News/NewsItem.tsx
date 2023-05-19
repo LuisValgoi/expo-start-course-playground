@@ -1,13 +1,18 @@
-import { Box, Image, Text, VStack } from 'native-base';
+import { Box, Text, VStack } from 'native-base';
 import React from 'react';
+import RemoteImage from '../RemoteImage';
 
 type NewsItemProps = {
   title: string;
-  uri: string;
+  imagePath: string;
   description: string;
 };
 
-const NewsItem: React.FC<NewsItemProps> = ({ title, uri, description }) => {
+const NewsItem: React.FC<NewsItemProps> = ({
+  title,
+  imagePath,
+  description,
+}) => {
   return (
     <Box bg="white" borderRadius="md" p="4">
       <VStack space="4">
@@ -20,8 +25,8 @@ const NewsItem: React.FC<NewsItemProps> = ({ title, uri, description }) => {
         >
           {title}
         </Text>
-        <Image
-          source={{ uri }}
+        <RemoteImage
+          imagePath={imagePath}
           alt={title}
           borderRadius="md"
           w="full"

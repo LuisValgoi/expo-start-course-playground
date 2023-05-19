@@ -1,6 +1,13 @@
 {
   "expo": {
-    "plugins": ["expo-image-picker"],
+    "plugins": [
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "The app accesses your photos to let you share them with your friends."
+        }
+      ]
+    ],
     "name": "expo-start-course",
     "slug": "expo-start-course",
     "version": "1.0.0",
@@ -12,10 +19,7 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": [
-      "**/*",
-      "assets"
-    ],
+    "assetBundlePatterns": ["**/*", "assets"],
     "ios": {
       "supportsTablet": true
     },

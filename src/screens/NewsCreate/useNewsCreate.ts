@@ -17,11 +17,11 @@ function useNewsCreate() {
       description: formValues.description
     });
 
+    const fullPath = `images/${news.path}`;
+    const storageRef = ref(storage, fullPath);
     await updateDoc(doc(firestore, news.path), {
-      imagePath: news.id,
+      imagePath: fullPath,
     })
-
-    const storageRef = ref(storage, `images/${news.id}`);
     return uploadBytes(storageRef, formValues.image).finally(
       () => {
         setLoading(false);

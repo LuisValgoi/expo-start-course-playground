@@ -5,14 +5,16 @@ import { INews } from 'src/interfaces/interfaces';
 import { useMemo } from 'react';
 
 function useNews() {
-  const [newsDoc, loading, error] = useCollection(collection(firestore, 'news'));
+  const [newsDoc, loading, error] = useCollection(
+    collection(firestore, 'news')
+  );
   const news = newsDoc?.docs.map(
     (doc) =>
-    ({
-      ...doc.data(),
-      id: doc.id,
-    } as INews)
-    );
+      ({
+        ...doc.data(),
+        id: doc.id,
+      } as INews)
+  );
 
   const empty = useMemo(() => news?.length === 0, [news]);
 

@@ -30,7 +30,7 @@ export type ComponentProps<T extends RootStackList> = StackNavigationProp<
 export type INews = {
   id: string;
   title: string;
-  urlToImage: string;
+  imagePath: string;
   description: string;
 };
 

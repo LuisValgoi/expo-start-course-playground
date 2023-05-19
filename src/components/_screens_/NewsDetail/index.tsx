@@ -19,7 +19,7 @@ const NewsDetailScreenComp: React.FC<NewsDetailScreenCompProps> = ({
       <VStack space="2">
         <NewsItem
           title={newsDetail?.title!}
-          uri={newsDetail?.urlToImage!}
+          imagePath={newsDetail?.imagePath!}
           description={newsDetail?.description!}
         />
         <Button onPress={onNewsEditPress} variant="link">

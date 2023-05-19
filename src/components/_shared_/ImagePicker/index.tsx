@@ -3,18 +3,25 @@ import {
   launchImageLibraryAsync,
   ImagePickerAsset,
   MediaTypeOptions,
+  requestMediaLibraryPermissionsAsync,
 } from 'expo-image-picker';
 import { HStack, IInputProps, Image, Input, Text } from 'native-base';
 import React, { useState } from 'react';
 
 type ImagePickerProps = {
+  loading: boolean;
   onPickImage: (selectedImage: ImagePickerAsset) => Promise<void>;
 } & IInputProps;
 
-const ImagePicker: React.FC<ImagePickerProps> = ({ onPickImage, ...props }) => {
+const ImagePicker: React.FC<ImagePickerProps> = ({
+  loading,
+  onPickImage,
+  ...props
+}) => {
   const [image, setImage] = useState<ImagePickerAsset | null>(null);
 
   const handlePickImage = async () => {
+    await requestMediaLibraryPermissionsAsync();
     let result = await launchImageLibraryAsync({
       mediaTypes: MediaTypeOptions.All,
       allowsEditing: true,
@@ -55,20 +62,25 @@ const ImagePicker: React.FC<ImagePickerProps> = ({ onPickImage, ...props }) => {
       />
 
       <HStack
-        opacity={image ? 1 : 0}
+        opacity={image || loading ? 1 : 0}
         flex={1}
         alignItems="center"
         paddingY="2"
         space="2"
       >
-        <Image
-          borderRadius="md"
-          width="8"
-          height="8"
-          source={{ uri: image?.uri }}
-          alt={image?.fileName || ''}
-        />
-        <Text colorScheme="gray">{image?.fileName}</Text>
+        {loading && <Text colorScheme="gray">Uploading...</Text>}
+        {image && (
+          <>
+            <Image
+              borderRadius="md"
+              width="8"
+              height="8"
+              source={{ uri: image.uri }}
+              alt={image.fileName || ''}
+            />
+            <Text colorScheme="gray">{image.fileName}</Text>
+          </>
+        )}
       </HStack>
     </HStack>
   );
