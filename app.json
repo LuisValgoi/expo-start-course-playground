@@ -1,5 +1,6 @@
 {
   "expo": {
+    "plugins": ["expo-image-picker"],
     "name": "expo-start-course",
     "slug": "expo-start-course",
     "version": "1.0.0",

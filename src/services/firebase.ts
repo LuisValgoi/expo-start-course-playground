@@ -7,6 +7,7 @@ import { REACT_APP_FIREBASE_STORAGE_BUCKET } from '@env';
 import { REACT_APP_FIREBASE_API_KEY } from '@env';
 import { initializeApp } from 'firebase/app';
 import { getFirestore } from 'firebase/firestore';
+import { getStorage } from 'firebase/storage';
 
 const firebaseConfig = {
   apiKey: REACT_APP_FIREBASE_API_KEY,
@@ -20,4 +21,11 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 
-export default getFirestore(app);
+const firestore = getFirestore(app);
+
+const storage = getStorage(app);
+
+export {
+  firestore,
+  storage
+};

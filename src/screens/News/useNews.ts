@@ -1,10 +1,10 @@
 import { collection } from 'firebase/firestore';
-import db from 'src/services/firebase';
+import { firestore } from 'src/services/firebase';
 import { useCollection } from 'react-firebase-hooks/firestore';
 import { INews } from 'src/interfaces/interfaces';
 
 function useNews() {
-  const [newsDoc, loading, error] = useCollection(collection(db, 'news'));
+  const [newsDoc, loading, error] = useCollection(collection(firestore, 'news'));
   const news = newsDoc?.docs.map(
     (doc) =>
       ({

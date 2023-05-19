@@ -10,7 +10,7 @@ import useNewsCreate from './useNewsCreate';
 type NewsCreateProps = ScreenProps<'NewsCreate'>;
 
 const NewsCreate: React.FC<NewsCreateProps> = ({ navigation }) => {
-  const { create } = useNewsCreate();
+  const { create, loading } = useNewsCreate();
 
   const handleSubmit = (formValues: NewsFormScreenCompFormValues) => {
     create(formValues)
@@ -25,7 +25,7 @@ const NewsCreate: React.FC<NewsCreateProps> = ({ navigation }) => {
 
   return (
     <Box bg="gray.100" pt="1/3" pl="2" pr="2" height="full">
-      <NewsFormScreenComp onSubmit={handleSubmit} />
+      <NewsFormScreenComp loading={loading} onSubmit={handleSubmit} />
     </Box>
   );
 };
