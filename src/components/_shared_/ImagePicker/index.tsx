@@ -7,11 +7,11 @@ import {
 import { HStack, IInputProps, Image, Input, Text } from 'native-base';
 import React, { useState } from 'react';
 
-type FilePickerProps = {
+type ImagePickerProps = {
   onPickImage: (selectedImage: ImagePickerAsset) => Promise<void>;
 } & IInputProps;
 
-const FilePicker: React.FC<FilePickerProps> = ({ onPickImage, ...props }) => {
+const ImagePicker: React.FC<ImagePickerProps> = ({ onPickImage, ...props }) => {
   const [image, setImage] = useState<ImagePickerAsset | null>(null);
 
   const handlePickImage = async () => {
@@ -74,4 +74,4 @@ const FilePicker: React.FC<FilePickerProps> = ({ onPickImage, ...props }) => {
   );
 };
 
-export default FilePicker;
+export default ImagePicker;

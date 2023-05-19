@@ -1,8 +1,10 @@
-import { addDoc, collection } from 'firebase/firestore';
+import { addDoc, collection, doc, updateDoc } from 'firebase/firestore';
 import { firestore } from 'src/services/firebase';
 import { NewsFormScreenCompFormValues } from 'src/components/_screens_/NewsForm';
 import { uploadBytes } from 'firebase/storage';
 import { useState } from 'react';
+import { ref } from 'firebase/storage';
+import { storage } from 'src/services/firebase';
 
 function useNewsCreate() {
   const [loading, setLoading] = useState(false);
@@ -10,13 +12,17 @@ function useNewsCreate() {
   const create = async (formValues: NewsFormScreenCompFormValues) => {
     setLoading(true);
 
-    await addDoc(collection(firestore, 'news'), {
+    const news = await addDoc(collection(firestore, 'news'), {
       title: formValues.title,
-      description: formValues.description,
-      imgPath: formValues.image.ref.fullPath
+      description: formValues.description
     });
 
-    return uploadBytes(formValues.image.ref, formValues.image.data).finally(
+    await updateDoc(doc(firestore, news.path), {
+      imagePath: news.id,
+    })
+
+    const storageRef = ref(storage, `images/${news.id}`);
+    return uploadBytes(storageRef, formValues.image).finally(
       () => {
         setLoading(false);
       }

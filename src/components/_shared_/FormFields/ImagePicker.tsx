@@ -1,20 +1,18 @@
 import { FormControl, IInputProps, WarningOutlineIcon } from 'native-base';
 import React from 'react';
-import FilePicker from '../FilePicker';
+import ImagePicker from '../ImagePicker';
 import { ImagePickerAsset } from 'expo-image-picker';
-import { StorageReference, ref } from 'firebase/storage';
-import { storage } from 'src/services/firebase';
 import { UseFormSetError, UseFormSetValue } from 'react-hook-form';
 
-export type FormFieldFilePickerProps = {
+export type FormFieldImagePickerProps = {
   controllerName: string;
   setValue: UseFormSetValue<any>;
   setError: UseFormSetError<any>;
   errorMessage?: string;
-  onPickImage: (storageRef: StorageReference, imgBlob: Blob) => void;
+  onPickImage: (data: Blob) => void;
 } & IInputProps;
 
-const FormFieldFilePicker: React.FC<FormFieldFilePickerProps> = ({
+const FormFieldImagePicker: React.FC<FormFieldImagePickerProps> = ({
   controllerName,
   setValue,
   setError,
@@ -27,16 +25,15 @@ const FormFieldFilePicker: React.FC<FormFieldFilePickerProps> = ({
 
   const handlePickImage = async (img: ImagePickerAsset) => {
     const response = await fetch(img.uri);
-    const blob = await response.blob();
-    const storageRef = ref(storage, `images/${img.fileName}`);
-    onPickImage(storageRef, blob);
-    setValue(controllerName, ref.name);
+    const data = await response.blob();
+    onPickImage(data);
+    setValue(controllerName, img.fileName);
     setError(controllerName, {});
   };
 
   return (
     <FormControl isInvalid={invalid}>
-      <FilePicker
+      <ImagePicker
         _focus={{
           bgColor: 'gray.100',
           borderWidth: 1,
@@ -59,4 +56,4 @@ const FormFieldFilePicker: React.FC<FormFieldFilePickerProps> = ({
   );
 };
 
-export default FormFieldFilePicker;
+export default FormFieldImagePicker;

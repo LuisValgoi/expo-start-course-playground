@@ -6,13 +6,12 @@ import * as yup from 'yup';
 import { useFormWithSchema } from 'src/hooks/useFormWithSchemaBuilder';
 import FormFieldInput from 'src/components/_shared_/FormFields/Input';
 import { INews } from 'src/interfaces/interfaces';
-import FormFieldFilePicker from 'src/components/_shared_/FormFields/FilePicker';
-import { StorageReference } from 'firebase/storage';
+import FormFieldImagePicker from 'src/components/_shared_/FormFields/ImagePicker';
 
 export type NewsFormScreenCompFormValues = {
   title: string;
   description: string;
-  image: { ref: StorageReference; data: Blob };
+  image: Blob;
 };
 
 type NewsFormScreenCompFormValuesInternal = {
@@ -38,7 +37,7 @@ const NewsFormScreenComp: React.FC<NewsFormScreenCompProps> = ({
   onSubmit,
   newsDetail,
 }) => {
-  const [img, setImg] = useState<{ ref: StorageReference; data: Blob }>();
+  const [image, setImage] = useState<Blob>();
 
   const { control, ...methods } = useFormWithSchema(schema, {
     mode: 'onBlur',
@@ -52,15 +51,11 @@ const NewsFormScreenComp: React.FC<NewsFormScreenCompProps> = ({
     title,
     description,
   }) => {
-    onSubmit({
-      title,
-      description,
-      image: { ref: img?.ref, data: img?.data },
-    } as NewsFormScreenCompFormValues);
+    onSubmit({ title, description, image } as NewsFormScreenCompFormValues);
   };
 
-  const handleOnPickImage = (ref: StorageReference, data: Blob) => {
-    setImg({ ref, data });
+  const handleOnPickImage = (data: Blob) => {
+    setImage(data);
   };
 
   return (
@@ -113,7 +108,7 @@ const NewsFormScreenComp: React.FC<NewsFormScreenCompProps> = ({
               control={control}
               name="image"
               render={({ formState }) => (
-                <FormFieldFilePicker
+                <FormFieldImagePicker
                   controllerName="image"
                   placeholder="Select Image"
                   defaultValue={formState.defaultValues?.image}
