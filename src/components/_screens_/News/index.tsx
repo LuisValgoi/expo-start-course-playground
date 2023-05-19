@@ -3,19 +3,28 @@ import { FlatList, ListRenderItemInfo } from 'react-native';
 
 import { INews } from 'src/interfaces/interfaces';
 import NewsListItem from 'src/components/_application_/News/NewsListItem';
+import { Center, Text } from 'native-base';
 
 type NewsScreenCompProps = {
-  onItemPress: (item: INews) => void;
+  empty?: boolean;
   news: ArrayLike<INews> | null | undefined;
+  onItemPress: (item: INews) => void;
 };
 
 const NewsScreenComp: React.FC<NewsScreenCompProps> = ({
-  onItemPress,
+  empty,
   news,
+  onItemPress,
 }) => {
-  const renderStoryItem = ({
-    item,
-  }: ListRenderItemInfo<INews>) => {
+  if (empty) {
+    return (
+      <Center>
+        <Text>No news to show!</Text>
+      </Center>
+    );
+  }
+
+  const renderStoryItem = ({ item }: ListRenderItemInfo<INews>) => {
     return (
       <NewsListItem
         onPress={() => onItemPress(item)}

@@ -10,7 +10,7 @@ import CreateNews from 'src/components/_application_/CreateNews';
 type NewsProps = ScreenProps<'News'>;
 
 const News: React.FC<NewsProps> = ({ navigation }) => {
-  const { loading, news } = useNews();
+  const { loading, news, empty } = useNews();
 
   const handleItemPress = (item: INews) => {
     navigation.navigate('NewsDetail', { id: item.id });
@@ -23,7 +23,7 @@ const News: React.FC<NewsProps> = ({ navigation }) => {
       ) : (
         <>
           <CreateNews />
-          <NewsScreenComp onItemPress={handleItemPress} news={news} />
+          <NewsScreenComp onItemPress={handleItemPress} news={news} empty={empty} />
         </>
       )}
     </Box>
