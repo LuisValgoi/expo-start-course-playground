@@ -17,11 +17,10 @@ const CreateNews: React.FC = () => {
       renderInPortal={false}
       shadow={2}
       size="sm"
-      label="Add News"
       colorScheme="red"
       bottom={2}
       right={2}
-      icon={<Icon as={FontAwesome} name="plus" />}
+      icon={<Icon textAlign="center" as={FontAwesome} name="plus" />}
     />
   );
 };

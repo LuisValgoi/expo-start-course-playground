@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { Button, FormControl, Stack, Text, VStack } from 'native-base';
 import { Controller, FormProvider, SubmitHandler } from 'react-hook-form';
 import * as yup from 'yup';
@@ -37,8 +37,6 @@ const NewsFormScreenComp: React.FC<NewsFormScreenCompProps> = ({
   onSubmit,
   newsDetail,
 }) => {
-  const [image, setImage] = useState<Blob>();
-
   const { control, ...methods } = useFormWithSchema(schema, {
     mode: 'onBlur',
     defaultValues: {
@@ -46,6 +44,12 @@ const NewsFormScreenComp: React.FC<NewsFormScreenCompProps> = ({
       description: newsDetail?.description,
     },
   });
+
+  const disabled = useMemo(() => {
+    return Object.values(methods.getValues()).filter(v => v).length < 3;
+  }, [methods]);
+
+  const [image, setImage] = useState<Blob>();
 
   const handleSubmit: SubmitHandler<NewsFormScreenCompFormValuesInternal> = ({
     title,
@@ -122,7 +126,10 @@ const NewsFormScreenComp: React.FC<NewsFormScreenCompProps> = ({
           </Stack>
 
           <Stack width="full">
-            <Button onPress={methods.handleSubmit(handleSubmit)}>
+            <Button
+              isDisabled={disabled}
+              onPress={methods.handleSubmit(handleSubmit)}
+            >
               {loading ? 'Loading...' : 'Send'}
             </Button>
           </Stack>

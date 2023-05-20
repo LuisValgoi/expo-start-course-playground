@@ -21,6 +21,7 @@ const FormFieldInput: React.FC<FormFieldInputProps> = ({
   return (
     <FormControl isInvalid={invalid}>
       <Input
+        autoCapitalize='none'
         placeholder={`Enter ${placeholder}...`}
         _focus={{
           bgColor: 'gray.100',

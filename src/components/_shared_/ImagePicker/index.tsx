@@ -18,18 +18,20 @@ const ImagePicker: React.FC<ImagePickerProps> = ({ onPickImage, ...props }) => {
 
   const handlePickImage = async () => {
     setLoading(true);
+
     await requestMediaLibraryPermissionsAsync();
     let result = await launchImageLibraryAsync({
       mediaTypes: MediaTypeOptions.All,
       allowsEditing: true,
       aspect: [4, 3],
-      quality: 1,
+      quality: 0,
     });
 
     if (!result.canceled) {
       setImage(result.assets[0]);
       onPickImage(result.assets[0]);
     }
+
     setLoading(false);
   };
 
@@ -42,6 +44,7 @@ const ImagePicker: React.FC<ImagePickerProps> = ({ onPickImage, ...props }) => {
         size="sm"
         colorScheme="gray"
         onPressIn={handlePickImage}
+        backgroundColor={loading ? "gray.100" : "white"}
         leftElement={
           <FontAwesome style={{ paddingLeft: 20 }} color="gray" name="upload" />
         }
