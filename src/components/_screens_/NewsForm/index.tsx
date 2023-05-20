@@ -11,12 +11,6 @@ import FormFieldImagePicker from 'src/components/_shared_/FormFields/ImagePicker
 export type NewsFormScreenCompFormValues = {
   title: string;
   description: string;
-  image: Blob;
-};
-
-type NewsFormScreenCompFormValuesInternal = {
-  title: string;
-  description: string;
   image: string;
 };
 
@@ -38,28 +32,20 @@ const NewsFormScreenComp: React.FC<NewsFormScreenCompProps> = ({
   newsDetail,
 }) => {
   const { control, ...methods } = useFormWithSchema(schema, {
-    mode: 'onBlur',
+    mode: 'onTouched',
     defaultValues: {
       title: newsDetail?.title,
       description: newsDetail?.description,
+      image: newsDetail?.imageSrc,
     },
   });
 
   const disabled = useMemo(() => {
-    return Object.values(methods.getValues()).filter(v => v).length < 3;
+    return Object.values(methods.getValues()).filter((v) => v).length < 3;
   }, [methods]);
 
-  const [image, setImage] = useState<Blob>();
-
-  const handleSubmit: SubmitHandler<NewsFormScreenCompFormValuesInternal> = ({
-    title,
-    description,
-  }) => {
-    onSubmit({ title, description, image } as NewsFormScreenCompFormValues);
-  };
-
-  const handleOnPickImage = (data: Blob) => {
-    setImage(data);
+  const handleSubmit: SubmitHandler<NewsFormScreenCompFormValues> = (form) => {
+    onSubmit(form);
   };
 
   return (
@@ -114,9 +100,9 @@ const NewsFormScreenComp: React.FC<NewsFormScreenCompProps> = ({
               render={({ formState }) => (
                 <FormFieldImagePicker
                   controllerName="image"
+                  imageName={newsDetail?.imageName}
                   placeholder="Select Image"
                   defaultValue={formState.defaultValues?.image}
-                  onPickImage={handleOnPickImage}
                   errorMessage={methods.formState.errors.image?.message}
                   setValue={methods.setValue}
                   setError={methods.setError}

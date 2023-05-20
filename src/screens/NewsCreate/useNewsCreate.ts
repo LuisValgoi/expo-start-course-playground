@@ -9,24 +9,25 @@ import { storage } from 'src/services/firebase';
 function useNewsCreate() {
   const [loading, setLoading] = useState(false);
 
-  const create = async (formValues: NewsFormScreenCompFormValues) => {
+  const create = async ({
+    title,
+    description,
+    image,
+  }: NewsFormScreenCompFormValues) => {
     setLoading(true);
 
-    const news = await addDoc(collection(firestore, 'news'), {
-      title: formValues.title,
-      description: formValues.description
-    });
+    const values = { title, description };
+    const news = await addDoc(collection(firestore, 'news'), values);
 
-    const fullPath = `images/${news.path}`;
-    const storageRef = ref(storage, fullPath);
-    await updateDoc(doc(firestore, news.path), {
-      imagePath: fullPath,
-    })
-    return uploadBytes(storageRef, formValues.image).finally(
-      () => {
-        setLoading(false);
-      }
-    );
+    const imagePath = `images/${news.path}`;
+    await updateDoc(doc(firestore, news.path), { imagePath });
+
+    const storageRef = ref(storage, imagePath);
+    const response = await fetch(image);
+    const data = await response.blob();
+    await uploadBytes(storageRef, data);
+
+    setLoading(false);
   };
 
   return {

@@ -1,7 +1,6 @@
 import { FontAwesome } from '@expo/vector-icons';
 import {
   launchImageLibraryAsync,
-  ImagePickerAsset,
   MediaTypeOptions,
   requestMediaLibraryPermissionsAsync,
 } from 'expo-image-picker';
@@ -9,12 +8,19 @@ import { HStack, IInputProps, Image, Input, Text, VStack } from 'native-base';
 import React, { useState } from 'react';
 
 type ImagePickerProps = {
-  onPickImage: (selectedImage: ImagePickerAsset) => Promise<void>;
+  imageName?: string;
+  onPickImage: (imgURI: string | undefined) => Promise<void>;
 } & IInputProps;
 
-const ImagePicker: React.FC<ImagePickerProps> = ({ onPickImage, ...props }) => {
+const ImagePicker: React.FC<ImagePickerProps> = ({
+  imageName,
+  defaultValue,
+  onPickImage,
+  ...props
+}) => {
   const [loading, setLoading] = useState<boolean>(false);
-  const [image, setImage] = useState<ImagePickerAsset | null>(null);
+  const [name, setName] = useState<string | undefined>(imageName);
+  const [uri, setUri] = useState<string | undefined>(defaultValue);
 
   const handlePickImage = async () => {
     setLoading(true);
@@ -27,9 +33,15 @@ const ImagePicker: React.FC<ImagePickerProps> = ({ onPickImage, ...props }) => {
       quality: 0,
     });
 
-    if (!result.canceled) {
-      setImage(result.assets[0]);
-      onPickImage(result.assets[0]);
+    if (result.canceled) {
+      onPickImage(undefined);
+    } else {
+      const image = result.assets[0];
+      const name = image.fileName || 'Temporary';
+      const uri = image.uri;
+      setName(name);
+      setUri(uri);
+      onPickImage(image.uri);
     }
 
     setLoading(false);
@@ -44,7 +56,7 @@ const ImagePicker: React.FC<ImagePickerProps> = ({ onPickImage, ...props }) => {
         size="sm"
         colorScheme="gray"
         onPressIn={handlePickImage}
-        backgroundColor={loading ? "gray.100" : "white"}
+        backgroundColor={loading ? 'gray.100' : 'white'}
         leftElement={
           <FontAwesome style={{ paddingLeft: 20 }} color="gray" name="upload" />
         }
@@ -63,16 +75,16 @@ const ImagePicker: React.FC<ImagePickerProps> = ({ onPickImage, ...props }) => {
 
       {loading && <Text colorScheme="gray">Uploading...</Text>}
 
-      {image && (
+      {uri && (
         <HStack space="2" alignItems="center">
           <Image
             borderRadius="md"
             width="8"
             height="8"
-            source={{ uri: image.uri }}
-            alt={image.fileName || ''}
+            source={{ uri }}
+            alt={name}
           />
-          <Text colorScheme="gray">{image.fileName}</Text>
+          <Text colorScheme="gray">{name}</Text>
         </HStack>
       )}
     </VStack>

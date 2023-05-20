@@ -1,34 +1,40 @@
 import { FormControl, IInputProps, WarningOutlineIcon } from 'native-base';
-import React, { useState } from 'react';
+import React from 'react';
 import ImagePicker from '../ImagePicker';
-import { ImagePickerAsset } from 'expo-image-picker';
 import { UseFormSetError, UseFormSetValue } from 'react-hook-form';
 
 export type FormFieldImagePickerProps = {
   controllerName: string;
+  imageName?: string;
   setValue: UseFormSetValue<any>;
   setError: UseFormSetError<any>;
   errorMessage?: string;
-  onPickImage: (data: Blob) => void;
 } & IInputProps;
 
 const FormFieldImagePicker: React.FC<FormFieldImagePickerProps> = ({
   controllerName,
-  setValue,
-  setError,
+  imageName,
   errorMessage = null,
   isInvalid,
-  onPickImage,
+  setValue,
+  setError,
   ...rest
 }) => {
   const invalid = !!errorMessage || isInvalid;
 
-  const handlePickImage = async (img: ImagePickerAsset) => {
-    const response = await fetch(img.uri);
-    const data = await response.blob();
-    onPickImage(data);
-    setValue(controllerName, img.fileName);
-    setError(controllerName, {});
+  const handlePickImage = async (imgURI: string | undefined) => {
+    const config = {
+      shouldDirty: true,
+      shouldTouch: true,
+      shouldValidate: true,
+    };
+    if (imgURI) {
+      setValue(controllerName, imgURI, config);
+      setError(controllerName, {});
+    } else {
+      setValue(controllerName, undefined, config);
+      setError('image', { message: errorMessage! }, { shouldFocus: true });
+    }
   };
 
   return (
@@ -45,6 +51,7 @@ const FormFieldImagePicker: React.FC<FormFieldImagePickerProps> = ({
           borderColor: 'red.500',
         }}
         onPickImage={handlePickImage}
+        imageName={imageName}
         {...rest}
       />
       {errorMessage && (
