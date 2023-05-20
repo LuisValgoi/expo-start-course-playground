@@ -5,22 +5,19 @@ import {
   MediaTypeOptions,
   requestMediaLibraryPermissionsAsync,
 } from 'expo-image-picker';
-import { HStack, IInputProps, Image, Input, Text } from 'native-base';
+import { HStack, IInputProps, Image, Input, Text, VStack } from 'native-base';
 import React, { useState } from 'react';
 
 type ImagePickerProps = {
-  loading: boolean;
   onPickImage: (selectedImage: ImagePickerAsset) => Promise<void>;
 } & IInputProps;
 
-const ImagePicker: React.FC<ImagePickerProps> = ({
-  loading,
-  onPickImage,
-  ...props
-}) => {
+const ImagePicker: React.FC<ImagePickerProps> = ({ onPickImage, ...props }) => {
+  const [loading, setLoading] = useState<boolean>(false);
   const [image, setImage] = useState<ImagePickerAsset | null>(null);
 
   const handlePickImage = async () => {
+    setLoading(true);
     await requestMediaLibraryPermissionsAsync();
     let result = await launchImageLibraryAsync({
       mediaTypes: MediaTypeOptions.All,
@@ -33,17 +30,17 @@ const ImagePicker: React.FC<ImagePickerProps> = ({
       setImage(result.assets[0]);
       onPickImage(result.assets[0]);
     }
+    setLoading(false);
   };
 
   return (
-    <HStack justifyItems="flex-start" width="full" space="2" height="8">
+    <VStack justifyItems="flex-start" width="full" space="2">
       <Input
         isReadOnly
         focusable
         variant="outline"
         size="sm"
         colorScheme="gray"
-        flex={1}
         onPressIn={handlePickImage}
         leftElement={
           <FontAwesome style={{ paddingLeft: 20 }} color="gray" name="upload" />
@@ -61,28 +58,21 @@ const ImagePicker: React.FC<ImagePickerProps> = ({
         {...props}
       />
 
-      <HStack
-        opacity={image || loading ? 1 : 0}
-        flex={1}
-        alignItems="center"
-        paddingY="2"
-        space="2"
-      >
-        {loading && <Text colorScheme="gray">Uploading...</Text>}
-        {image && (
-          <>
-            <Image
-              borderRadius="md"
-              width="8"
-              height="8"
-              source={{ uri: image.uri }}
-              alt={image.fileName || ''}
-            />
-            <Text colorScheme="gray">{image.fileName}</Text>
-          </>
-        )}
-      </HStack>
-    </HStack>
+      {loading && <Text colorScheme="gray">Uploading...</Text>}
+
+      {image && (
+        <HStack space="2" alignItems="center">
+          <Image
+            borderRadius="md"
+            width="8"
+            height="8"
+            source={{ uri: image.uri }}
+            alt={image.fileName || ''}
+          />
+          <Text colorScheme="gray">{image.fileName}</Text>
+        </HStack>
+      )}
+    </VStack>
   );
 };
 
