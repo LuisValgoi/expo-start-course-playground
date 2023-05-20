@@ -1,3 +1,4 @@
+import { User } from 'firebase/auth';
 import React, {
   createContext,
   Dispatch,
@@ -5,11 +6,10 @@ import React, {
   SetStateAction,
   useState,
 } from 'react';
-import { LoggedUserData } from 'src/interfaces/interfaces';
 
 export type AuthContextValue = {
-  loggedUser: LoggedUserData | undefined;
-  setLoggedUser: Dispatch<SetStateAction<LoggedUserData | undefined>>;
+  loggedUser: User | null | undefined;
+  setLoggedUser: Dispatch<SetStateAction<User | null | undefined>>;
 };
 
 export const AuthContext = createContext<AuthContextValue>(
@@ -17,7 +17,7 @@ export const AuthContext = createContext<AuthContextValue>(
 );
 
 const AuthProvider: React.FC<PropsWithChildren> = ({ children }) => {
-  const [loggedUser, setLoggedUser] = useState<LoggedUserData | undefined>({ name: 'a', email: 'a@a.com', password: 'asdk'})
+  const [loggedUser, setLoggedUser] = useState<User | null | undefined>(null)
 
   return (
     <AuthContext.Provider

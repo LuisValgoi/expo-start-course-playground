@@ -97,8 +97,11 @@ const SignUpScreenComp: React.FC<SignUpScreenCompProps> = ({
           </Stack>
 
           <Stack width="full">
-            <Button onPress={methods.handleSubmit(handleSubmit)}>
-              {isLoading ? 'Loading...' : 'Sign Up'}
+            <Button
+              isLoading={isLoading}
+              onPress={methods.handleSubmit(handleSubmit)}
+            >
+              Sign Up
             </Button>
 
             <Button variant="link" onPress={onSignInClick}>

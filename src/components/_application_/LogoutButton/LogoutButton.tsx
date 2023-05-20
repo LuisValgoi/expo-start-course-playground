@@ -12,7 +12,7 @@ const LogoutButton = () => {
 
   const [dialogOpen, setDialogOpen] = useState(false);
 
-  const { userName, onLogout } = useLogoutButton();
+  const { userName, loading, onLogout } = useLogoutButton();
 
   const handleOpen = () => {
     setDialogOpen(true);
@@ -22,8 +22,8 @@ const LogoutButton = () => {
     setDialogOpen(false);
   };
 
-  const handleLogout = () => {
-    onLogout().then(() => {
+  const handleLogout = async () => {
+    return onLogout().then(() => {
       handleClose();
       navigation.navigate('SignIn', {});
     });
@@ -63,7 +63,11 @@ const LogoutButton = () => {
               >
                 Cancel
               </Button>
-              <Button colorScheme="danger" onPress={handleLogout}>
+              <Button
+                isLoading={loading}
+                colorScheme="danger"
+                onPress={handleLogout}
+              >
                 Yes, I am!
               </Button>
             </Button.Group>

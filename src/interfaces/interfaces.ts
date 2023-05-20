@@ -35,9 +35,3 @@ export type INews = {
   imageSrc?: string;
   imageName?: string;
 };
-
-export interface LoggedUserData {
-  name: string;
-  email: string;
-  password: string;
-}

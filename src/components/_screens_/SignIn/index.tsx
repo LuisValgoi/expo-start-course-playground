@@ -1,12 +1,5 @@
 import React from 'react';
-import {
-  Button,
-  Checkbox,
-  FormControl,
-  Stack,
-  Text,
-  VStack,
-} from 'native-base';
+import { Button, FormControl, Stack, Text, VStack } from 'native-base';
 import { Controller, FormProvider, SubmitHandler } from 'react-hook-form';
 import * as yup from 'yup';
 
@@ -14,7 +7,6 @@ import { useFormWithSchema } from 'src/hooks/useFormWithSchemaBuilder';
 import FormFieldInput from 'src/components/_shared_/FormFields/Input';
 import LogoImage from 'src/components/_shared_/FormAssets/LogoImage';
 import FormFieldInputPassword from 'src/components/_shared_/FormFields/InputPassword';
-import FormFieldCheckbox from 'src/components/_shared_/FormFields/CheckBox';
 
 export type SignInScreenCompFormValues = {
   email: string;
@@ -89,8 +81,11 @@ const SignInScreenComp: React.FC<SignInScreenCompProps> = ({
           </Stack>
 
           <Stack width="full">
-            <Button onPress={methods.handleSubmit(handleSubmit)}>
-              {isLoading ? 'Loading...' : 'Sign In'}
+            <Button
+              isLoading={isLoading}
+              onPress={methods.handleSubmit(handleSubmit)}
+            >
+              Sign In
             </Button>
 
             <Button variant="link" onPress={onSignUpClick}>
