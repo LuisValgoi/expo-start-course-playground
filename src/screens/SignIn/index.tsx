@@ -5,7 +5,7 @@ import SignInScreenComp, {
   SignInScreenCompFormValues,
 } from 'src/components/_screens_/SignIn';
 import { ScreenProps } from 'src/interfaces/interfaces';
-import { useSignIn } from 'src/screens/SignIn/useSignIn';
+import { useSignIn } from 'src/services/useSignIn';
 
 type SignInProps = ScreenProps<'SignIn'>;
 

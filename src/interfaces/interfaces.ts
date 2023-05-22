@@ -1,5 +1,6 @@
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
+import { Timestamp } from 'firebase/firestore';
 
 export type StackNavigatorProps = {
   Stack: any;
@@ -32,5 +33,6 @@ export type INews = {
   title: string;
   description: string;
   imagePath: string;
+  createdAt?: Timestamp;
   imageName?: string;
 };

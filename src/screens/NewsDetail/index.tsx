@@ -22,7 +22,7 @@ const NewsDetail: React.FC<NewsDetailProp> = ({ navigation, route }) => {
       ) : (
         <NewsDetailScreenComp
           onNewsEditPress={handleNewsEditPress}
-          newsDetail={news}
+          newsDetail={news!}
         />
       )}
     </Box>

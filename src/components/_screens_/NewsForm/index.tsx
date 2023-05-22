@@ -117,7 +117,7 @@ const NewsFormScreenComp: React.FC<NewsFormScreenCompProps> = ({
               isDisabled={disabled}
               onPress={methods.handleSubmit(handleSubmit)}
             >
-              Send
+              {newsDetail ? "Save" : "Create"}
             </Button>
           </Stack>
         </VStack>

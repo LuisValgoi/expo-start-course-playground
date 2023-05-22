@@ -27,10 +27,11 @@ const NewsScreenComp: React.FC<NewsScreenCompProps> = ({
   const renderStoryItem = ({ item }: ListRenderItemInfo<INews>) => {
     return (
       <NewsListItem
-        key={item.id || item.title}
+        key={item.title}
         onPress={() => onItemPress(item)}
         title={item.title}
         imagePath={item.imagePath}
+        createdAt={item.createdAt}
         description={item.description}
       />
     );
@@ -40,7 +41,7 @@ const NewsScreenComp: React.FC<NewsScreenCompProps> = ({
     <FlatList
       data={news}
       renderItem={renderStoryItem}
-      keyExtractor={(item) => item.id}
+      keyExtractor={(_, index) => index.toString()}
     />
   );
 };

@@ -6,7 +6,6 @@ import { auth } from 'src/services/firebase';
 
 export function useSignIn() {
   const { loggedUser } = useAuth();
-  const [error, setError] = useState<AuthError>();
   const [loading, setLoading] = useState<boolean>();
 
   const onSubmit = async (form: SignInScreenCompFormValues) => {
@@ -23,7 +22,6 @@ export function useSignIn() {
   return {
     user: loggedUser,
     loading,
-    error,
     onSubmit,
   };
 }

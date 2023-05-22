@@ -17,7 +17,6 @@ function useNewsDetail(id: string) {
         const newsDoc = await getDoc(newsDocRef);
 
         const imageName = ref(storage, `images/news/${id}`).name;
-
         const newsDetail = { ...newsDoc?.data(), id: newsDoc.id, imageName } as INews;
         setNews(newsDetail);
       } catch (error) {

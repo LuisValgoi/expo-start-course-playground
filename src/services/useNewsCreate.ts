@@ -1,4 +1,4 @@
-import { addDoc, collection, doc, updateDoc } from 'firebase/firestore';
+import { addDoc, collection, doc, serverTimestamp, updateDoc } from 'firebase/firestore';
 import { firestore } from 'src/services/firebase';
 import { NewsFormScreenCompFormValues } from 'src/components/_screens_/NewsForm';
 import { StorageError, getDownloadURL, uploadBytes } from 'firebase/storage';
@@ -17,18 +17,18 @@ function useNewsCreate() {
     setLoading(true);
     try {
       const addRef = collection(firestore, 'news');
-      const addPayload = { title, description };
+      const addPayload = { title, description, createdAt: serverTimestamp() };
       const news = await addDoc(addRef, addPayload);
 
-      const imgRef = ref(storage, `images/news/${news.id}`);
-      const imgSrc = await fetch(image);
-      const imgBlob = await imgSrc.blob();
-      await uploadBytes(imgRef, imgBlob);
+      const imageRef = ref(storage, `images/news/${news.id}`);
+      const imageName = imageRef.name;
+      const imageSrc = await fetch(image);
+      const imageBlob = await imageSrc.blob();
+      await uploadBytes(imageRef, imageBlob);
 
-      const imagePath = await getDownloadURL(imgRef);
-
+      const imagePath = await getDownloadURL(imageRef);
       const updateRef = doc(firestore, news.path);
-      const updatePayload = { id: news.id, imagePath, imageName: imgRef.name };
+      const updatePayload = { id: news.id, imagePath, imageName };
       await updateDoc(updateRef, updatePayload);
     } catch (error) {
       throw Error((error as StorageError).message);
