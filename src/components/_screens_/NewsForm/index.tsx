@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useMemo } from 'react';
 import { Button, FormControl, Stack, Text, VStack } from 'native-base';
 import { Controller, FormProvider, SubmitHandler } from 'react-hook-form';
 import * as yup from 'yup';
@@ -23,7 +23,7 @@ const schema = yup.object().shape({
 type NewsFormScreenCompProps = {
   loading?: boolean;
   newsDetail?: INews;
-  onSubmit: (data: NewsFormScreenCompFormValues) => void;
+  onSubmit: (data: NewsFormScreenCompFormValues) => Promise<void>;
 };
 
 const NewsFormScreenComp: React.FC<NewsFormScreenCompProps> = ({
@@ -36,7 +36,7 @@ const NewsFormScreenComp: React.FC<NewsFormScreenCompProps> = ({
     defaultValues: {
       title: newsDetail?.title,
       description: newsDetail?.description,
-      image: newsDetail?.imageSrc,
+      image: newsDetail?.imagePath,
     },
   });
 
@@ -44,8 +44,8 @@ const NewsFormScreenComp: React.FC<NewsFormScreenCompProps> = ({
     return Object.values(methods.getValues()).filter((v) => v).length < 3;
   }, [methods]);
 
-  const handleSubmit: SubmitHandler<NewsFormScreenCompFormValues> = (form) => {
-    onSubmit(form);
+  const handleSubmit: SubmitHandler<NewsFormScreenCompFormValues> = async (form) => {
+    await onSubmit(form);
   };
 
   return (
@@ -113,10 +113,11 @@ const NewsFormScreenComp: React.FC<NewsFormScreenCompProps> = ({
 
           <Stack width="full">
             <Button
+              isLoading={loading}
               isDisabled={disabled}
               onPress={methods.handleSubmit(handleSubmit)}
             >
-              {loading ? 'Loading...' : 'Send'}
+              Send
             </Button>
           </Stack>
         </VStack>

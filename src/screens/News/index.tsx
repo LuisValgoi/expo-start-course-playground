@@ -3,7 +3,7 @@ import { Box } from 'native-base';
 
 import NewsScreenComp from 'src/components/_screens_/News';
 import { INews, ScreenProps } from 'src/interfaces/interfaces';
-import useNews from 'src/screens/News/useNews';
+import useNews from 'src/services/useNews';
 import LoadingIndicator from 'src/components/_shared_/LoadingIndicator';
 import CreateNews from 'src/components/_application_/CreateNews';
 

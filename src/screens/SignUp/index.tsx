@@ -12,13 +12,13 @@ type SignUpProps = ScreenProps<'SignUp'>;
 const SignUp: React.FC<SignUpProps> = ({ navigation }) => {
   const { loading, onSubmit } = useSignUp();
 
-  const handleSubmit = (form: SignUpScreenCompFormValues) => {
-    onSubmit(form)
+  const handleSubmit = async (form: SignUpScreenCompFormValues) => {
+    await onSubmit(form)
       .then(() => {
         navigation.navigate('News', {});
       })
       .catch((error) => {
-        Alert.alert(error.message, undefined, [{ text: 'Try Again' }]);
+        Alert.alert(error);
       });
   };
 

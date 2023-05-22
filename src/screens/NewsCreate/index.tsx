@@ -5,21 +5,21 @@ import NewsFormScreenComp, {
 } from 'src/components/_screens_/NewsForm';
 import { Alert } from 'react-native';
 import { ScreenProps } from 'src/interfaces/interfaces';
-import useNewsCreate from './useNewsCreate';
+import useNewsCreate from '../../services/useNewsCreate';
 
 type NewsCreateProps = ScreenProps<'NewsCreate'>;
 
 const NewsCreate: React.FC<NewsCreateProps> = ({ navigation }) => {
   const { create, loading } = useNewsCreate();
 
-  const handleSubmit = (formValues: NewsFormScreenCompFormValues) => {
-    create(formValues)
+  const handleSubmit = async (formValues: NewsFormScreenCompFormValues) => {
+    return await create(formValues)
       .then(() => {
-        navigation.navigate('News', {});
         Alert.alert('Successfully added');
+        navigation.navigate('News', {});
       })
-      .catch(() => {
-        Alert.alert('Something went wrong');
+      .catch((error) => {
+        Alert.alert(error);
       });
   };
 

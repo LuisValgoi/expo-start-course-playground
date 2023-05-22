@@ -1,11 +1,13 @@
-import { User } from 'firebase/auth';
+import { onAuthStateChanged, User } from 'firebase/auth';
 import React, {
   createContext,
   Dispatch,
   PropsWithChildren,
   SetStateAction,
+  useEffect,
   useState,
 } from 'react';
+import { auth } from 'src/services/firebase';
 
 export type AuthContextValue = {
   loggedUser: User | null | undefined;
@@ -17,18 +19,28 @@ export const AuthContext = createContext<AuthContextValue>(
 );
 
 const AuthProvider: React.FC<PropsWithChildren> = ({ children }) => {
-  const [loggedUser, setLoggedUser] = useState<User | null | undefined>(null)
+  const [loggedUser, setLoggedUser] = useState<User | null | undefined>();
+
+  useEffect(() => {
+    async function fetch() {
+      onAuthStateChanged(auth, (user) => {
+        setLoggedUser(user);
+      });
+    }
+
+    fetch();
+  }, []);
 
   return (
     <AuthContext.Provider
       value={{
         loggedUser,
-        setLoggedUser
+        setLoggedUser,
       }}
     >
       <>{children}</>
     </AuthContext.Provider>
-  )
-}
+  );
+};
 
-export default AuthProvider
+export default AuthProvider;

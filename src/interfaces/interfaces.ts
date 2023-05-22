@@ -32,6 +32,5 @@ export type INews = {
   title: string;
   description: string;
   imagePath: string;
-  imageSrc?: string;
   imageName?: string;
 };

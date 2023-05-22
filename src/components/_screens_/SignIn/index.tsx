@@ -31,8 +31,8 @@ const SignInScreenComp: React.FC<SignInScreenCompProps> = ({
 }) => {
   const { control, ...methods } = useFormWithSchema(schema, { mode: 'onBlur' });
 
-  const handleSubmit: SubmitHandler<SignInScreenCompFormValues> = (data) => {
-    onSubmit(data);
+  const handleSubmit: SubmitHandler<SignInScreenCompFormValues> = async (data) => {
+    await onSubmit(data);
   };
 
   return (

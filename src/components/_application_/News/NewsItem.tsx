@@ -4,14 +4,14 @@ import RemoteImage from '../RemoteImage';
 
 type NewsItemProps = {
   title: string;
-  imagePath: string;
   description: string;
+  imagePath?: string;
 };
 
 const NewsItem: React.FC<NewsItemProps> = ({
   title,
-  imagePath,
   description,
+  imagePath,
 }) => {
   return (
     <Box bg="white" borderRadius="md" p="4">

@@ -1,19 +1,27 @@
-import { getAuth } from 'firebase/auth';
-import { useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
+import { AuthError, signInWithEmailAndPassword } from 'firebase/auth';
+import { useState } from 'react';
 import { SignInScreenCompFormValues } from 'src/components/_screens_/SignIn';
 import { useAuth } from 'src/hooks/useAuth';
+import { auth } from 'src/services/firebase';
 
 export function useSignIn() {
-  const auth = getAuth();
-  const [signIn, _, loading, error] = useSignInWithEmailAndPassword(auth);
   const { loggedUser } = useAuth();
+  const [error, setError] = useState<AuthError>();
+  const [loading, setLoading] = useState<boolean>();
 
   const onSubmit = async (form: SignInScreenCompFormValues) => {
-    return signIn(form.email, form.password);
+    setLoading(true)
+    try {
+      return await signInWithEmailAndPassword(auth, form.email, form.password);
+    } catch (error) {
+      throw Error((error as AuthError).message)
+    } finally {
+      setLoading(false)
+    }
   };
 
   return {
-    loggedUser,
+    user: loggedUser,
     loading,
     error,
     onSubmit,

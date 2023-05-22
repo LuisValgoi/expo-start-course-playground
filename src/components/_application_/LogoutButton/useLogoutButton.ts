@@ -1,20 +1,28 @@
-import { getAuth } from 'firebase/auth';
-import { useSignOut } from 'react-firebase-hooks/auth';
+import { signOut, AuthError } from 'firebase/auth';
+import { useState } from 'react';
 import { useAuth } from 'src/hooks/useAuth';
+import { auth } from 'src/services/firebase';
 
 export function useLogoutButton() {
-  const auth = getAuth();
-  const [signOut, loading, error] = useSignOut(auth);
-  const { loggedUser } = useAuth();
+  const { loggedUser, setLoggedUser } = useAuth();
+  const [loading, setLoading] = useState<boolean>();
 
   const onLogout = async () => {
-    return signOut();
+    setLoading(true);
+    try {
+      return await signOut(auth).then(() => {
+        setLoggedUser(null);
+      });
+    } catch (error) {
+      throw Error((error as AuthError).message);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return {
     userName: loggedUser?.displayName,
     loading,
-    error,
     onLogout,
   };
 }

@@ -6,21 +6,22 @@ import NewsFormScreenComp, {
 import { Alert } from 'react-native';
 import { ScreenProps } from 'src/interfaces/interfaces';
 import LoadingIndicator from 'src/components/_shared_/LoadingIndicator';
-import useNewsEdit from 'src/screens/NewsEdit/useNewsEdit';
+import useNewsEdit from 'src/services/useNewsEdit';
+import useNewsDetail from '../../services/useNewsDetail';
 
 type NewsEditProps = ScreenProps<'NewsEdit'>;
 
 const NewsEdit: React.FC<NewsEditProps> = ({ navigation, route }) => {
-  const { loading, news, update } = useNewsEdit(route.params.id);
+  const { news, loading } = useNewsDetail(route.params.id);
+  const { update, loading: uLoading } = useNewsEdit(route.params.id);
 
-  const handleSubmit = (formValues: NewsFormScreenCompFormValues) => {
-    update(formValues)
+  const handleSubmit = async (formValues: NewsFormScreenCompFormValues) => {
+    await update(formValues)
       .then(() => {
-        navigation.navigate('NewsDetail', { id: news.id });
-        Alert.alert('Successfully edited');
+        navigation.navigate('News', {});
       })
-      .catch(() => {
-        Alert.alert('Something went wrong');
+      .catch((error) => {
+        Alert.alert(error);
       });
   };
 
@@ -29,7 +30,7 @@ const NewsEdit: React.FC<NewsEditProps> = ({ navigation, route }) => {
       {loading ? (
         <LoadingIndicator />
       ) : (
-        <NewsFormScreenComp newsDetail={news} onSubmit={handleSubmit} />
+        <NewsFormScreenComp loading={uLoading} newsDetail={news} onSubmit={handleSubmit} />
       )}
     </Box>
   );

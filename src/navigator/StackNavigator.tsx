@@ -20,11 +20,11 @@ const StackNavigator: React.FC<StackNavigatorProps> = ({
 
   return (
     <NavigationContainer onReady={onLayoutRootView}>
-      <Stack.Navigator initialRouteName={loggedUser ? 'News' : 'SignIn'}>
+      <Stack.Navigator initialRouteName={loggedUser?.displayName ? 'News' : 'SignIn'}>
         {PublicStackNavigator({ Stack })}
         {PrivateStackNavigator({ Stack })}
       </Stack.Navigator>
-      {loggedUser && <Footer />}
+      {loggedUser?.displayName && <Footer />}
     </NavigationContainer>
   );
 };

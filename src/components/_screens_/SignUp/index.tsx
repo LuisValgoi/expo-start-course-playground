@@ -22,7 +22,7 @@ const schema = yup.object().shape({
 
 type SignUpScreenCompProps = {
   isLoading?: boolean;
-  onSubmit: (data: SignUpScreenCompFormValues) => void;
+  onSubmit: (data: SignUpScreenCompFormValues) => Promise<void>;
   onSignInClick: () => void;
 };
 
@@ -33,8 +33,8 @@ const SignUpScreenComp: React.FC<SignUpScreenCompProps> = ({
 }) => {
   const { control, ...methods } = useFormWithSchema(schema, { mode: 'onBlur' });
 
-  const handleSubmit: SubmitHandler<SignUpScreenCompFormValues> = (data) => {
-    onSubmit(data);
+  const handleSubmit: SubmitHandler<SignUpScreenCompFormValues> = async (data) => {
+    await onSubmit(data);
   };
 
   return (

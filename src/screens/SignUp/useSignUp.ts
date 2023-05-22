@@ -1,24 +1,34 @@
-import { getAuth } from 'firebase/auth';
 import {
-  useUpdateProfile,
-  useCreateUserWithEmailAndPassword,
-} from 'react-firebase-hooks/auth';
+  AuthError,
+  updateProfile,
+  createUserWithEmailAndPassword as createProfile,
+  User,
+} from 'firebase/auth';
+import { useState } from 'react';
 import { SignUpScreenCompFormValues } from 'src/components/_screens_/SignUp';
+import { useAuth } from 'src/hooks/useAuth';
+import { auth } from 'src/services/firebase';
 
 export function useSignUp() {
-  const auth = getAuth();
-  const [update, uUpdating, uError] = useUpdateProfile(auth);
-  const [create, _, cUpdating, cError] =
-    useCreateUserWithEmailAndPassword(auth);
+  const { loggedUser, setLoggedUser } = useAuth();
+  const [loading, setLoading] = useState<boolean>();
 
   const onSubmit = async (form: SignUpScreenCompFormValues) => {
-    await create(form.email, form.password);
-    return await update({ displayName: form.name });
+    setLoading(true);
+    try {
+      const user = await createProfile(auth, form.email, form.password);
+      await updateProfile(user.user, { displayName: form.name });
+      setLoggedUser((user) => ({ ...user, displayName: form.name } as User));
+    } catch (error) {
+      throw Error((error as AuthError).message);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return {
     onSubmit,
-    loading: cUpdating || uUpdating,
-    error: cError || uError,
+    user: loggedUser,
+    loading,
   };
 }

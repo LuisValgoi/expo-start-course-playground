@@ -4,6 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 import { AlertDialog, Button, Icon } from 'native-base';
 import { type ComponentProps } from 'src/interfaces/interfaces';
 import { useLogoutButton } from 'src/components/_application_/LogoutButton/useLogoutButton';
+import { Alert } from 'react-native';
 
 const LogoutButton = () => {
   const cancelRef = useRef(null);
@@ -23,10 +24,14 @@ const LogoutButton = () => {
   };
 
   const handleLogout = async () => {
-    return onLogout().then(() => {
-      handleClose();
-      navigation.navigate('SignIn', {});
-    });
+    await onLogout()
+      .then(() => {
+        handleClose();
+        navigation.navigate('SignIn', {});
+      })
+      .catch((error) => {
+        Alert.alert(error);
+      });
   };
 
   return (

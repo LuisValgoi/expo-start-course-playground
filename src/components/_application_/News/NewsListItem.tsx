@@ -5,8 +5,8 @@ import RemoteImage from '../RemoteImage';
 type NewsListItemProps = {
   onPress: () => void;
   title: string;
-  imagePath: string;
   description: string;
+  imagePath?: string;
 };
 
 const NewsListItem: React.FC<NewsListItemProps> = ({

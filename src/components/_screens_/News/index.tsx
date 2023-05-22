@@ -27,6 +27,7 @@ const NewsScreenComp: React.FC<NewsScreenCompProps> = ({
   const renderStoryItem = ({ item }: ListRenderItemInfo<INews>) => {
     return (
       <NewsListItem
+        key={item.id || item.title}
         onPress={() => onItemPress(item)}
         title={item.title}
         imagePath={item.imagePath}
