@@ -5,13 +5,14 @@ import { useEffect, useState } from 'react';
 import { useAuth } from 'src/hooks/useAuth';
 
 function useNews() {
-  const { loggedUser } = useAuth();
+  const { loggedUser, setUnsubscribe } = useAuth();
   const newsDocsRef = collection(firestore, 'news');
   const [loading, setLoading] = useState<boolean>();
   const [news, setNews] = useState<INews[]>([]);
 
   useEffect(() => {
     setLoading(true);
+
     const qq = query(newsDocsRef, where('author', '==', loggedUser?.uid));
     const unsubscribe = onSnapshot(qq, (snapshot) => {
       const news = [] as INews[];
@@ -22,9 +23,7 @@ function useNews() {
       setLoading(false);
     });
 
-    return () => {
-      unsubscribe();
-    };
+    setUnsubscribe((prev) => [...prev, unsubscribe]);
   }, []);
 
   return {

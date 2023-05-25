@@ -1,5 +1,5 @@
 import { auth } from 'src/services/firebase';
-import { User } from 'firebase/auth';
+import { Unsubscribe, User } from 'firebase/auth';
 import React, {
   createContext,
   Dispatch,
@@ -11,7 +11,9 @@ import React, {
 
 export type AuthContextValue = {
   loggedUser: User | null | undefined;
+  unsubscribe: Unsubscribe[];
   setLoggedUser: Dispatch<SetStateAction<User | null | undefined>>;
+  setUnsubscribe: Dispatch<SetStateAction<Unsubscribe[]>>;
 };
 
 export const AuthContext = createContext<AuthContextValue>(
@@ -20,9 +22,11 @@ export const AuthContext = createContext<AuthContextValue>(
 
 const AuthProvider: React.FC<PropsWithChildren> = ({ children }) => {
   const [loggedUser, setLoggedUser] = useState<User | null | undefined>();
+  const [unsubscribe, setUnsubscribe] = useState<Unsubscribe[]>([]);
 
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((user) => {
+
+    const unsubscribeAuth = auth.onIdTokenChanged((user) => {
       if (user) {
         setLoggedUser(user);
       } else {
@@ -30,8 +34,10 @@ const AuthProvider: React.FC<PropsWithChildren> = ({ children }) => {
       }
     });
 
+    setUnsubscribe((prev) => [...prev, unsubscribeAuth]);
+
     return () => {
-      unsubscribe();
+      unsubscribeAuth();
     };
   }, []);
 
@@ -39,7 +45,9 @@ const AuthProvider: React.FC<PropsWithChildren> = ({ children }) => {
     <AuthContext.Provider
       value={{
         loggedUser,
+        unsubscribe,
         setLoggedUser,
+        setUnsubscribe,
       }}
     >
       {children}
