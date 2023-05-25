@@ -5,8 +5,10 @@ import { StorageError, getDownloadURL, uploadBytes } from 'firebase/storage';
 import { useState } from 'react';
 import { ref } from 'firebase/storage';
 import { storage } from 'src/services/firebase';
+import { useAuth } from 'src/hooks/useAuth';
 
 function useNewsCreate() {
+  const { loggedUser } = useAuth();
   const [loading, setLoading] = useState<boolean>();
 
   const create = async ({
@@ -17,7 +19,9 @@ function useNewsCreate() {
     setLoading(true);
     try {
       const addRef = collection(firestore, 'news');
-      const addPayload = { title, description, createdAt: serverTimestamp() };
+      const createdAt = serverTimestamp();
+      const author = loggedUser?.uid;
+      const addPayload = { title, description, createdAt, author };
       const news = await addDoc(addRef, addPayload);
 
       const imageRef = ref(storage, `images/news/${news.id}`);

@@ -4,7 +4,7 @@ import {
   createUserWithEmailAndPassword as createProfile,
   User,
 } from 'firebase/auth';
-import { addDoc, collection } from 'firebase/firestore';
+import { doc, setDoc } from 'firebase/firestore';
 import { useState } from 'react';
 import { SignUpScreenCompFormValues } from 'src/components/_screens_/SignUp';
 import { useAuth } from 'src/hooks/useAuth';
@@ -17,12 +17,12 @@ export function useSignUp() {
   const onSubmit = async (form: SignUpScreenCompFormValues) => {
     setLoading(true);
     try {
-      const usersAddRef = collection(firestore, 'users');
-      const userAddPayload = { name: form.name, email: form.email };
-      await addDoc(usersAddRef, userAddPayload);
-
       const { user } = await createProfile(auth, form.email, form.password);
       await updateProfile(user, { displayName: form.name });
+
+      const userAddRef = doc(firestore, 'users', user.uid);
+      const userAddPayload = { name: form.name, email: form.email };
+      await setDoc(userAddRef, userAddPayload);
 
       setLoggedUser((user) => ({ ...user, displayName: form.name } as User));
     } catch (error) {

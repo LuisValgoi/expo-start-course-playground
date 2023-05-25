@@ -1,17 +1,19 @@
-import { collection, onSnapshot } from 'firebase/firestore';
+import { collection, onSnapshot, query, where } from 'firebase/firestore';
 import { firestore } from 'src/services/firebase';
 import { INews } from 'src/interfaces/interfaces';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useAuth } from 'src/hooks/useAuth';
 
 function useNews() {
+  const { loggedUser } = useAuth();
   const newsDocsRef = collection(firestore, 'news');
   const [loading, setLoading] = useState<boolean>();
   const [news, setNews] = useState<INews[]>([]);
-  const empty = useMemo(() => news.length === 0, [news]);
 
   useEffect(() => {
     setLoading(true);
-    const unsubscribe = onSnapshot(newsDocsRef, (snapshot) => {
+    const qq = query(newsDocsRef, where('author', '==', loggedUser?.uid));
+    const unsubscribe = onSnapshot(qq, (snapshot) => {
       const news = [] as INews[];
       snapshot.forEach((change) => {
         news.push(change.data() as INews);
@@ -28,7 +30,7 @@ function useNews() {
   return {
     loading,
     news,
-    empty,
+    empty: !loading && news.length === 0,
   };
 }
 

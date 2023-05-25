@@ -32,7 +32,8 @@ export type INews = {
   id: string;
   title: string;
   description: string;
-  imagePath: string;
-  createdAt?: Timestamp;
+  createdAt: Timestamp;
+  author: string;
+  imagePath?: string;
   imageName?: string;
 };
