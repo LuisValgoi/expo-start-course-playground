@@ -2,7 +2,6 @@ import {
   AuthError,
   updateProfile,
   createUserWithEmailAndPassword as createProfile,
-  User,
 } from 'firebase/auth';
 import { doc, setDoc } from 'firebase/firestore';
 import { useState } from 'react';
@@ -11,7 +10,7 @@ import { useAuth } from 'src/hooks/useAuth';
 import { auth, firestore } from 'src/services/firebase';
 
 export function useSignUp() {
-  const { loggedUser, setLoggedUser } = useAuth();
+  const { user } = useAuth();
   const [loading, setLoading] = useState<boolean>();
 
   const onSubmit = async (form: SignUpScreenCompFormValues) => {
@@ -24,7 +23,6 @@ export function useSignUp() {
       const userAddPayload = { name: form.name, email: form.email };
       await setDoc(userAddRef, userAddPayload);
 
-      setLoggedUser((user) => ({ ...user, displayName: form.name } as User));
     } catch (error) {
       throw Error((error as AuthError).message);
     } finally {
@@ -33,8 +31,8 @@ export function useSignUp() {
   };
 
   return {
-    onSubmit,
-    user: loggedUser,
+    user,
     loading,
+    onSubmit,
   };
 }

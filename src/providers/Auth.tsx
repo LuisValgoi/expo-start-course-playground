@@ -1,5 +1,4 @@
-import { auth } from 'src/services/firebase';
-import { Unsubscribe, User } from 'firebase/auth';
+import { User, onAuthStateChanged } from 'firebase/auth';
 import React, {
   createContext,
   Dispatch,
@@ -8,12 +7,12 @@ import React, {
   useEffect,
   useState,
 } from 'react';
+import { useApp } from 'src/hooks/useApp';
+import { auth } from 'src/services/firebase';
 
 export type AuthContextValue = {
-  loggedUser: User | null | undefined;
-  unsubscribe: Unsubscribe[];
-  setLoggedUser: Dispatch<SetStateAction<User | null | undefined>>;
-  setUnsubscribe: Dispatch<SetStateAction<Unsubscribe[]>>;
+  user: User | null;
+  setUser: Dispatch<SetStateAction<User | null>>;
 };
 
 export const AuthContext = createContext<AuthContextValue>(
@@ -21,33 +20,26 @@ export const AuthContext = createContext<AuthContextValue>(
 );
 
 const AuthProvider: React.FC<PropsWithChildren> = ({ children }) => {
-  const [loggedUser, setLoggedUser] = useState<User | null | undefined>();
-  const [unsubscribe, setUnsubscribe] = useState<Unsubscribe[]>([]);
+  const { setUnsubscribe } = useApp()
+  const [user, setUser] = useState<User | null>(null);
 
   useEffect(() => {
-
-    const unsubscribeAuth = auth.onIdTokenChanged((user) => {
-      if (user) {
-        setLoggedUser(user);
-      } else {
-        setLoggedUser(null);
-      }
+    const listener = onAuthStateChanged(auth, async (user) => {
+      setUser(user);
     });
 
-    setUnsubscribe((prev) => [...prev, unsubscribeAuth]);
+    setUnsubscribe((prev) => [...prev, listener]);
 
     return () => {
-      unsubscribeAuth();
+      listener();
     };
-  }, []);
+  }, [auth]);
 
   return (
     <AuthContext.Provider
       value={{
-        loggedUser,
-        unsubscribe,
-        setLoggedUser,
-        setUnsubscribe,
+        user,
+        setUser,
       }}
     >
       {children}

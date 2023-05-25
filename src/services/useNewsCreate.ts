@@ -8,7 +8,7 @@ import { storage } from 'src/services/firebase';
 import { useAuth } from 'src/hooks/useAuth';
 
 function useNewsCreate() {
-  const { loggedUser } = useAuth();
+  const { user } = useAuth();
   const [loading, setLoading] = useState<boolean>();
 
   const create = async ({
@@ -20,7 +20,7 @@ function useNewsCreate() {
     try {
       const addRef = collection(firestore, 'news');
       const createdAt = serverTimestamp();
-      const author = loggedUser?.uid;
+      const author = user?.uid;
       const addPayload = { title, description, createdAt, author };
       const news = await addDoc(addRef, addPayload);
 

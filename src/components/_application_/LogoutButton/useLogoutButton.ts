@@ -1,17 +1,18 @@
 import { signOut, AuthError } from 'firebase/auth';
 import { useState } from 'react';
+import { useApp } from 'src/hooks/useApp';
 import { useAuth } from 'src/hooks/useAuth';
 import { auth } from 'src/services/firebase';
 
 export function useLogoutButton() {
-  const { loggedUser, unsubscribe, setLoggedUser } = useAuth();
+  const { user } = useAuth();
+  const { unsubscribe } = useApp();
   const [loading, setLoading] = useState<boolean>();
 
   const onLogout = async () => {
     setLoading(true);
     try {
       return await signOut(auth).then(() => {
-        setLoggedUser(null);
         unsubscribe.forEach((fn) => fn());
       });
     } catch (error) {
@@ -22,7 +23,7 @@ export function useLogoutButton() {
   };
 
   return {
-    userName: loggedUser?.displayName,
+    userName: user?.displayName,
     loading,
     onLogout,
   };

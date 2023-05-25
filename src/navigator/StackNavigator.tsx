@@ -1,6 +1,6 @@
+import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import React from 'react';
 import { RootStackParamList } from 'src/interfaces/interfaces';
 import PrivateStackNavigator from './PrivateStackNavigator';
 import PublicStackNavigator from './PublicStackNavigator';
@@ -16,15 +16,15 @@ type StackNavigatorProps = {
 const StackNavigator: React.FC<StackNavigatorProps> = ({
   onLayoutRootView,
 }) => {
-  const { loggedUser } = useAuth();
+  const { user } = useAuth()
 
   return (
     <NavigationContainer onReady={onLayoutRootView}>
-      <Stack.Navigator initialRouteName={loggedUser?.displayName ? 'News' : 'SignIn'}>
+      <Stack.Navigator initialRouteName={user?.displayName ? 'News' : 'SignIn'}>
         {PublicStackNavigator({ Stack })}
         {PrivateStackNavigator({ Stack })}
       </Stack.Navigator>
-      {loggedUser?.displayName && <Footer />}
+      {user?.displayName && <Footer />}
     </NavigationContainer>
   );
 };
