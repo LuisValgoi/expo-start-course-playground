@@ -19,39 +19,21 @@ export const AuthContext = createContext<AuthContextValue>(
 );
 
 const AuthProvider: React.FC<PropsWithChildren> = ({ children }) => {
-  const [listenUser, setListenUser] = useState(false);
   const [loggedUser, setLoggedUser] = useState<User | null | undefined>();
 
   useEffect(() => {
-    const authListener = auth.onAuthStateChanged((result) => {
-      setLoggedUser(result);
-      if (!listenUser) {
-        setListenUser(true);
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      if (user) {
+        setLoggedUser(user);
+      } else {
+        setLoggedUser(null);
       }
     });
 
     return () => {
-      if (authListener) {
-        authListener();
-      }
+      unsubscribe();
     };
-  }, [listenUser]);
-
-  useEffect(() => {
-    let userListener: () => void;
-
-    if (listenUser) {
-      userListener = auth.onIdTokenChanged((result) => {
-        setLoggedUser(result);
-      });
-    }
-
-    return () => {
-      if (userListener) {
-        userListener();
-      }
-    };
-  }, [listenUser]);
+  }, []);
 
   return (
     <AuthContext.Provider
@@ -60,7 +42,7 @@ const AuthProvider: React.FC<PropsWithChildren> = ({ children }) => {
         setLoggedUser,
       }}
     >
-      <>{children}</>
+      {children}
     </AuthContext.Provider>
   );
 };
