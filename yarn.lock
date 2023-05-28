@@ -2975,10 +2975,22 @@
     opencollective-postinstall "^2.0.1"
     superstruct "^0.6.2"
 
+"@react-native-firebase/auth@^17.5.0":
+  version "17.5.0"
+  resolved "https://registry.npmjs.org/@react-native-firebase/auth/-/auth-17.5.0.tgz#7d8df67fb94439452b2d0a4835b9fb26a64c4b10"
+  integrity sha512-iF5Wv7dcDPmxu2om5SkPVGPELAwahAp3izFXjrv6wQAFmOTQ+2rEIDRBFMmS7EZ/qwNodvKK3vgDLEnOxDtTAQ==
+  dependencies:
+    plist "^3.0.5"
+
 "@react-native-firebase/storage@^17.5.0":
   version "17.5.0"
   resolved "https://registry.npmjs.org/@react-native-firebase/storage/-/storage-17.5.0.tgz#6b55f24f0fe949bad4e29a0f0e344b93b2e50844"
   integrity sha512-E5lemuaGCFxMCDIFvAlaG98SwLNJz9RIhg0f5up/uU9oZ9JIeodbWvwfZMlSupmvaKTvM2U+YFFmugdv2q9jrg==
+
+"@react-native-google-signin/google-signin@^10.0.1":
+  version "10.0.1"
+  resolved "https://registry.npmjs.org/@react-native-google-signin/google-signin/-/google-signin-10.0.1.tgz#5ca5208c6677aca7e8b12f73699de3048d9a5a31"
+  integrity sha512-oZoU2lfKyn0s0GqqdFsi4v2FSENrxQYQU9DD/RSkxDdkIQ49Wwo6p5LKlgXY04GwZEVdYMuvZN3G89gQW0ig2g==
 
 "@react-native-picker/picker@^2.4.10":
   version "2.4.10"
@@ -10058,11 +10070,6 @@ react-devtools-core@^4.26.1:
   dependencies:
     shell-quote "^1.6.1"
     ws "^7"
-
-react-firebase-hooks@^5.1.1:
-  version "5.1.1"
-  resolved "https://registry.npmjs.org/react-firebase-hooks/-/react-firebase-hooks-5.1.1.tgz#fc92bb4b860c6753c806583f64d7f069b6ee6785"
-  integrity sha512-y2UpWs82xs+39q5Rc/wq316ca52QsC0n8m801V+yM4IC4hbfOL4yQPVSh7w+ydstdvjN9F+lvs1WrO2VYxpmdA==
 
 react-freeze@^1.0.0:
   version "1.0.3"

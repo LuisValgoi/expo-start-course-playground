@@ -1,4 +1,5 @@
 declare module '@env' {
+  export const REACT_APP_GOOGLE_WEB_CLIENT_ID: string;
   export const REACT_APP_FIREBASE_API_KEY: string;
   export const REACT_APP_FIREBASE_AUTH_DOMAIN: string;
   export const REACT_APP_FIREBASE_PROJECT_ID: string;

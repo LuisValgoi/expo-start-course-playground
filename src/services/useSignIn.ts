@@ -9,13 +9,24 @@ export function useSignIn() {
   const [loading, setLoading] = useState<boolean>();
 
   const onSubmit = async (form: SignInScreenCompFormValues) => {
-    setLoading(true)
+    setLoading(true);
     try {
       return await signInWithEmailAndPassword(auth, form.email, form.password);
     } catch (error) {
-      throw Error((error as AuthError).message)
+      throw Error((error as AuthError).message);
     } finally {
-      setLoading(false)
+      setLoading(false);
+    }
+  };
+
+  const onSignInWithGoogle = async () => {
+    setLoading(true);
+    try {
+      return Promise.resolve()
+    } catch (error) {
+      throw Error((error as AuthError).message);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -23,5 +34,6 @@ export function useSignIn() {
     user,
     loading,
     onSubmit,
+    onSignInWithGoogle,
   };
 }

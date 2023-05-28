@@ -1,5 +1,13 @@
 import React from 'react';
-import { Button, FormControl, Stack, Text, VStack } from 'native-base';
+import {
+  Button,
+  Center,
+  FormControl,
+  HStack,
+  Stack,
+  Text,
+  VStack,
+} from 'native-base';
 import { Controller, FormProvider, SubmitHandler } from 'react-hook-form';
 import * as yup from 'yup';
 
@@ -7,6 +15,7 @@ import { useFormWithSchema } from 'src/hooks/useFormWithSchemaBuilder';
 import FormFieldInput from 'src/components/_shared_/FormFields/Input';
 import LogoImage from 'src/components/_shared_/FormAssets/LogoImage';
 import FormFieldInputPassword from 'src/components/_shared_/FormFields/InputPassword';
+import { FontAwesome } from '@expo/vector-icons';
 
 export type SignInScreenCompFormValues = {
   email: string;
@@ -22,12 +31,14 @@ type SignInScreenCompProps = {
   isLoading?: boolean;
   onSignUpClick: () => void;
   onSubmit: (data: SignInScreenCompFormValues) => void;
+  onSignInWithGoogle: () => void;
 };
 
 const SignInScreenComp: React.FC<SignInScreenCompProps> = ({
   isLoading,
   onSubmit,
   onSignUpClick,
+  onSignInWithGoogle,
 }) => {
   const { control, ...methods } = useFormWithSchema(schema, { mode: 'onBlur' });
 
@@ -80,7 +91,7 @@ const SignInScreenComp: React.FC<SignInScreenCompProps> = ({
             />
           </Stack>
 
-          <Stack width="full">
+          <Stack space="4" width="full">
             <Button
               isLoading={isLoading}
               onPress={methods.handleSubmit(handleSubmit)}
@@ -88,9 +99,25 @@ const SignInScreenComp: React.FC<SignInScreenCompProps> = ({
               Sign In
             </Button>
 
-            <Button variant="link" onPress={onSignUpClick}>
-              Register Yourself
-            </Button>
+            <HStack space="2">
+              <Button
+                flex="1"
+                variant="outline"
+                isLoading={isLoading}
+                onPress={onSignInWithGoogle}
+              >
+                <FontAwesome color="black" name="google" />
+              </Button>
+            </HStack>
+
+            <Center>
+              <HStack alignItems="center">
+                <Text>Not a member?</Text>
+                <Button ml="-2" variant="link" onPress={onSignUpClick}>
+                  Register now
+                </Button>
+              </HStack>
+            </Center>
           </Stack>
         </VStack>
       </FormControl>
