@@ -8,8 +8,9 @@
         }
       ]
     ],
-    "name": "expo-start-course",
-    "slug": "expo-start-course",
+    "scheme": "globomantics",
+    "name": "globomantics",
+    "slug": "globomantics",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -21,7 +22,8 @@
     },
     "assetBundlePatterns": ["**/*", "assets"],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.globomantics.App"
     },
     "android": {
       "package": "com.globomantics.App",
@@ -34,6 +36,5 @@
       "favicon": "./assets/favicon.png"
     },
     "sdkVersion": "48.0.0"
-  },
-  "name": "expo-start-course"
+  }
 }

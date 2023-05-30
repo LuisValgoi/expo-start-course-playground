@@ -18,9 +18,9 @@ This repository was built for educational purposes only.
 
 # Expo Link
 
-- https://expo.dev/@luisvalgoi/expo-start-course?serviceType=classic&distribution=expo-go&release-channel=testing
+- https://expo.dev/@luisvalgoi/globomantics?serviceType=classic&distribution=expo-go&release-channel=testing
 
-- exp://exp.host/@luisvalgoi/expo-start-course?release-channel=testing
+- exp://exp.host/@luisvalgoi/globomantics?release-channel=testing
 
 # Getting Started
 
